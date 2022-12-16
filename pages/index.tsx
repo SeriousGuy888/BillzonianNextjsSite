@@ -11,7 +11,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <p>frick</p>
+        <section className={styles.hero}>
+          <h1>Billzonian</h1>
+          <p>A pretty cool fork of English</p>
+        </section>
       </main>
     </>
   )
