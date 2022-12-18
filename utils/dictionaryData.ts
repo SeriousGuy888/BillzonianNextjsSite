@@ -1,21 +1,34 @@
-import csv from "csvtojson"
-import { DictionaryEntry } from "../types/DictionaryTypes"
+import { DictionarySheetRow } from "../types/DictionaryTypes"
+import PublicGoogleSheetsParser from "public-google-sheets-parser"
 
 export const entries = await (async () => {
-  const response = await fetch(
-    "https://seriousguy888.github.io/Billzonian/vocabulary.csv",
+  const parser = new PublicGoogleSheetsParser(
+    "1D1-LkiIjWox_cdvaCdYfzUaT0cnhDsHr_8pir0mlS58",
+    "Words",
   )
+  const rows = await parser.parse() as DictionarySheetRow[]
 
-  if (!response.ok) {
+  if (rows.length === 0) {
+    console.error("Failed to get dictionary data!")
     return []
   }
 
-  const rawText = await response.text()
-  const jsonData: DictionaryEntry[] = await csv({
-    output: "json",
-  }).fromString(rawText)
+  const splitEntry = (entry?: string) =>
+    (entry ?? "")
+      .split("|") // Delimiter for entries in one spreadsheet cell
+      .filter((e) => e) // Remove empty lines
 
-  return jsonData
+  const entries = rows.map((row) => ({
+    word: row.word ?? "",
+    partOfSpeech: row.partOfSpeech ?? "",
+    pronunciations: splitEntry(row.pronunciations),
+    glosses: splitEntry(row.glosses),
+    examples: splitEntry(row.examples),
+    notes: splitEntry(row.notes),
+    alternateForms: splitEntry(row.alternateForms),
+  }))
+
+  return entries
 })()
 
 export function getWord(searchWord: string) {
