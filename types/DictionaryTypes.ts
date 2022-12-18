@@ -1,9 +1,19 @@
+export interface DictionarySheetRow {
+  word?: string
+  partOfSpeech?: string
+  pronunciations?: string
+  glosses?: string
+  examples?: string
+  notes?: string
+  alternateForms?: string
+}
+
 export interface DictionaryEntry {
   word: string
-  pos: string
-  ipa: string
-  translation: string
-  example: string
-  notes: string
-  alt_forms: string
+  partOfSpeech: string
+  pronunciations: string[]
+  glosses: string[]
+  examples: string[]
+  notes: string[]
+  alternateForms: string[]
 }
