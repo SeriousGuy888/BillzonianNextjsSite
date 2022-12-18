@@ -20,7 +20,7 @@ export default function Word() {
       <section className={styles.entryWord}>
         <h1>{entry.word}</h1>
         <p className={notoSans.className}>
-          {entry.ipa.split("|").map((pronunciation, index) => (
+          {entry.pronunciations.map((pronunciation, index) => (
             <span className={styles.ipaReading} key={index}>
               /{pronunciation}/
             </span>
@@ -28,7 +28,7 @@ export default function Word() {
         </p>
         <br />
         <p>Also spelled
-          {entry.alt_forms.split("|").map((alt, index) => (
+          {entry.alternateForms.map((alt, index) => (
             <Link href={`/words/${alt}`} key={index}>
               {alt}
             </Link>
@@ -37,21 +37,21 @@ export default function Word() {
       </section>
       <section>
         <ol>
-          {entry.translation.split("|").map((trans, index) => (
+          {entry.glosses.map((trans, index) => (
             <li key={index}>{trans}</li>
           ))}
         </ol>
       </section>
       <section>
         <ol className={styles.letterList}>
-          {entry.example.split("|").map((examp, index) => (
+          {entry.examples.map((examp, index) => (
             <li key={index}>{examp}</li>
           ))}
         </ol>
       </section>
       <section>
         <ul>
-          {entry.notes.split("|").map((note, index) => (
+          {entry.notes.map((note, index) => (
             <li key={index}>{note}</li>
           ))}
         </ul>
