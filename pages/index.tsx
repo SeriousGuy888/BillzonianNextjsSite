@@ -1,5 +1,7 @@
+import Image from "next/image"
 import Head from "next/head"
 import styles from "../styles/Home.module.scss"
+import logo from "../public/logos/dukk_only_nofill.svg"
 
 export default function Home() {
   return (
@@ -10,12 +12,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <section className={styles.hero}>
-          <h1>Billzonian</h1>
-          <p>A pretty cool fork of English</p>
-        </section>
-      </main>
+      <section className={styles.hero}>
+        <Image src={logo} alt="Logo" width={250} height={250} />
+        <h2>Billzonian</h2>
+        <p>A pretty cool fork of English</p>
+      </section>
     </>
   )
 }
