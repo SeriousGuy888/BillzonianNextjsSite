@@ -6,23 +6,44 @@
   width: 100%;
   grid-template-columns: 200px 1fr;
   grid-template-rows: auto 1fr;
-}
 
-.layout-header {
-  grid-column: 1/3;
-  background-color: $dark-black;
-  width: 100%;
-  height: 6rem;
 
-  display: flex;
-}
+  .layoutHeader {
+    grid-column: 1/3;
+    background-color: $dark-black;
+    width: 100%;
+    height: 6rem;
 
-.layout-nav {
-  background-color: $dark-black;
-  height: 100vh;
-}
+    display: flex;
+    align-items: center;
+    
+    gap: 2rem;
+    padding: 1rem;
+    
+    img {
+      width: auto;
+      height: 3.25rem;
+    }
+    
+    .logoBlock {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
 
-.content-section {
-  margin: 2rem;
-  flex-grow: 1;
+    .verticalLine {
+      height: 100%;
+      border-left: 1px solid $light-grey;
+    }
+  }
+
+  .layoutNav {
+    background-color: $dark-black;
+    height: 100vh;
+  }
+
+  .contentSection {
+    margin: 2rem;
+    flex-grow: 1;
+  }
 }
