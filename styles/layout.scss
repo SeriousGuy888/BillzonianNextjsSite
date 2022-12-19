@@ -1,0 +1,28 @@
+@import "colours";
+
+.layout {
+  display: grid;
+  position: fixed;
+  width: 100%;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.layout-header {
+  grid-column: 1/3;
+  background-color: $dark-black;
+  width: 100%;
+  height: 6rem;
+
+  display: flex;
+}
+
+.layout-nav {
+  background-color: $dark-black;
+  height: 100vh;
+}
+
+.content-section {
+  margin: 2rem;
+  flex-grow: 1;
+}
