@@ -2,11 +2,12 @@ import { DictionarySheetRow } from "../types/DictionaryTypes"
 import PublicGoogleSheetsParser from "public-google-sheets-parser"
 
 export const entries = await (async () => {
+  // https://docs.google.com/spreadsheets/d/1D1-LkiIjWox_cdvaCdYfzUaT0cnhDsHr_8pir0mlS58/edit#gid=1697954206
   const parser = new PublicGoogleSheetsParser(
     "1D1-LkiIjWox_cdvaCdYfzUaT0cnhDsHr_8pir0mlS58",
     "Words",
   )
-  const rows = await parser.parse() as DictionarySheetRow[]
+  const rows = (await parser.parse()) as DictionarySheetRow[]
 
   if (rows.length === 0) {
     console.error("Failed to get dictionary data!")
@@ -15,7 +16,7 @@ export const entries = await (async () => {
 
   const splitEntry = (entry?: string) =>
     (entry ?? "")
-      .split("|") // Delimiter for entries in one spreadsheet cell
+      .split("\n") // Delimiter for entries in one spreadsheet cell
       .filter((e) => e) // Remove empty lines
 
   const entries = rows.map((row) => ({
