@@ -1,4 +1,4 @@
-export interface DictionarySheetRow {
+export interface SheetRow {
   word?: string
   partOfSpeech?: string
   pronunciations?: string

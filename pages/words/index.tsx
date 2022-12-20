@@ -1,17 +1,16 @@
-import { DictionaryEntry } from "../../types/DictionaryTypes"
-import { entries } from "../../utils/dictionaryData"
+import { getWordsOnPage } from "../../utils/dictionaryData"
 
-export default function Words({ entries }: { entries: DictionaryEntry[] }) {
+export default function Words({ words }: { words: string[] }) {
   return (
     <>
-      <pre>{JSON.stringify(entries, null, 2)}</pre>
+      <pre>{JSON.stringify(words, null, 2)}</pre>
     </>
   )
 }
 
 export async function getStaticProps() {
   return {
-    props: { entries },
+    props: { words: getWordsOnPage(1, 20) },
     revalidate: 30,
   }
 }

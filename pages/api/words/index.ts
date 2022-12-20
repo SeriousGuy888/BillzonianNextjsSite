@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { entries } from "../../../utils/dictionaryData"
+import { allWords } from "../../../utils/dictionaryData"
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  res.status(200).json(entries)
+  res.status(200).json(allWords)
 }
