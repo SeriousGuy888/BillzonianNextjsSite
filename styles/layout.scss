@@ -1,49 +1,33 @@
 @import "colours";
 
 .layout {
-  display: grid;
-  position: fixed;
+  $sidebar-width: 5rem;
+
   width: 100%;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: auto 1fr;
 
+  display: flex;
+  flex-direction: column;
 
-  .layoutHeader {
-    grid-column: 1/3;
+  nav {
+    width: $sidebar-width;
+    height: 100vh;
+    position: fixed;
+
     background-color: $dark-black;
-    width: 100%;
-    height: 6rem;
 
-    display: flex;
-    align-items: center;
-    
-    gap: 2rem;
-    padding: 1rem;
-    
     img {
       width: auto;
       height: 3.25rem;
     }
-    
+
     .logoBlock {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
-    }
-
-    .verticalLine {
-      height: 100%;
-      border-left: 1px solid $light-grey;
+      gap: 0.5rem;
     }
   }
 
-  .layoutNav {
-    background-color: $dark-black;
-    height: 100vh;
-  }
-
-  .contentSection {
-    margin: 2rem;
-    flex-grow: 1;
+  main {
+    margin-left: $sidebar-width;
   }
 }

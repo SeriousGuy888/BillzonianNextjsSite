@@ -4,7 +4,6 @@ import "../styles/layout.scss"
 import type { AppProps } from "next/app"
 
 import { Montserrat } from "@next/font/google"
-import Header from "../components/Header"
 import Nav from "../components/Nav"
 
 const montserrat = Montserrat({
@@ -15,12 +14,11 @@ const montserrat = Montserrat({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${montserrat.variable} layout`}>
-      <Header />
+    <div className="layout">
       <Nav />
-      <div className="contentSection">
+      <main className={`${montserrat.variable}`}>
         <Component {...pageProps} />
-      </div>
-    </main>
+      </main>
+    </div>
   )
 }

@@ -1,12 +1,19 @@
-.hero {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20vh;
-  width: fit-content;
+@import "colours";
 
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+
+  height: 100vh;
 
   h1 {
     font-size: 3rem;
+  }
+
+  p {
+    color: $text-grey;
   }
 }

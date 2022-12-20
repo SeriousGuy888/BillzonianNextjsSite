@@ -13,9 +13,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className={styles.hero}>
-        <Image src={logo} alt="Logo" width={250} height={250} />
-        <h2>Billzonian</h2>
-        <p>A pretty cool fork of English</p>
+        <div className={styles.centerpiece}>
+          <Image src={logo} alt="Logo" width={250} height={250} />
+          <h2>Billzonian</h2>
+          <p>A pretty cool fork of English</p>
+        </div>
       </section>
     </>
   )
