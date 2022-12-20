@@ -1,3 +1,5 @@
+@import "colours";
+
 * {
   font-family: var(--montserrat);
   font-style: normal;
@@ -20,4 +22,9 @@ h3 {
 p {
   font-weight: 400;
   font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: $accent;
 }
