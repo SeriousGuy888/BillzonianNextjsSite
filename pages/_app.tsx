@@ -14,9 +14,9 @@ const montserrat = Montserrat({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className="layout">
+    <div className={`${montserrat.variable} layout`}>
       <Nav />
-      <main className={`${montserrat.variable}`}>
+      <main>
         <Component {...pageProps} />
       </main>
     </div>
