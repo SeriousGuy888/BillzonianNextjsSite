@@ -1,7 +1,6 @@
-import Image from "next/image"
 import Head from "next/head"
 import styles from "../styles/Home.module.scss"
-import logo from "../public/logos/dukk_only_nofill.svg"
+import { LogoNoFill } from "../components/svgs/logos"
 
 export default function Home() {
   return (
@@ -14,7 +13,7 @@ export default function Home() {
       </Head>
       <section className={styles.hero}>
         <div className={styles.centerpiece}>
-          <Image src={logo} alt="Logo" width={250} height={250} />
+          <LogoNoFill width="15rem" height="15rem" />
           <h2>Billzonian</h2>
           <p>A pretty cool fork of English</p>
         </div>

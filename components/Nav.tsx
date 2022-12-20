@@ -1,13 +1,24 @@
-import Image from "next/image"
-import logo from "../public/logos/circle.svg"
+import Link from "next/link"
+import NavItem from "./NavItem"
+import { BookIcon, HomeIcon } from "./svgs/icons"
+import { LogoCircle } from "./svgs/logos"
 
 export default function Nav() {
   return (
     <nav>
-      <div className="logoBlock">
-        <Image src={logo} alt="Billzonian Logo" width={0} height={0} />
+      <section className="logoBlock">
+        <LogoCircle />
         <h3>Billzonian</h3>
-      </div>
+      </section>
+
+      <section className="linkList">
+        <NavItem href="/" label="Home">
+          <HomeIcon />
+        </NavItem>
+        <NavItem href="/words" label="Dictionary">
+          <BookIcon />
+        </NavItem>
+      </section>
     </nav>
   )
 }
