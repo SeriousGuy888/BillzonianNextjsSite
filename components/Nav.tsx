@@ -1,6 +1,6 @@
 import Link from "next/link"
 import NavItem from "./NavItem"
-import { BookIcon, HomeIcon } from "./svgs/icons"
+import { BookIcon, HomeIcon, InfoIcon, SearchIcon } from "./svgs/icons"
 import { LogoCircle } from "./svgs/logos"
 
 export default function Nav() {
@@ -20,6 +20,12 @@ export default function Nav() {
         </NavItem>
         <NavItem href="/words" label="Dictionary">
           <BookIcon />
+        </NavItem>
+        <NavItem href="/info" label="Info">
+          <InfoIcon />
+        </NavItem>
+        <NavItem href="/search" label="Search">
+          <SearchIcon />
         </NavItem>
       </section>
     </nav>
