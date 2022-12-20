@@ -8,7 +8,10 @@ export default function Nav() {
     <nav>
       <section className="logoBlock">
         <LogoCircle />
-        <h3>Billzonian</h3>
+        <div className="wordmark">
+          <h3>Billzonian</h3>
+          <p>Chambi owosom.</p>
+        </div>
       </section>
 
       <section className="linkList">
