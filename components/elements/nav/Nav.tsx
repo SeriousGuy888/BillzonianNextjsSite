@@ -1,7 +1,7 @@
 import Link from "next/link"
 import NavItem from "./NavItem"
-import { BookIcon, HomeIcon, InfoIcon, SearchIcon } from "./svgs/icons"
-import { LogoCircle } from "./svgs/logos"
+import { BookIcon, HomeIcon, InfoIcon, SearchIcon } from "../../svgs/icons"
+import { LogoCircle } from "../../svgs/logos"
 
 export default function Nav() {
   return (

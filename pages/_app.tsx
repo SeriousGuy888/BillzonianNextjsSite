@@ -4,7 +4,7 @@ import "../styles/layout.scss"
 import type { AppProps } from "next/app"
 
 import { Montserrat } from "@next/font/google"
-import Nav from "../components/Nav"
+import Nav from "../components/elements/nav/Nav"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
