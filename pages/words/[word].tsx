@@ -21,7 +21,7 @@ export default function Word() {
         <h1>{word}</h1>
         {entries.map((entry, i) => {
           return (
-            <article key={i} className={styles.entry}>
+            <article key={entry.glosses[0]} className={styles.entry}>
               <p className={styles.entryNumber}>Entry {i + 1}</p>
 
               <h3>{entry.partOfSpeech}</h3>
@@ -30,22 +30,22 @@ export default function Word() {
 
               {entry.glosses.length > 0 && (
                 <ol>
-                  {entry.glosses.map((gloss, j) => (
-                    <li key={j}>{gloss}</li>
+                  {entry.glosses.map((gloss) => (
+                    <li key={gloss}>{gloss}</li>
                   ))}
                 </ol>
               )}
               {entry.examples.length > 0 && (
                 <ol className={styles.letterList}>
-                  {entry.examples.map((example, j) => (
-                    <li key={j}>{example}</li>
+                  {entry.examples.map((example) => (
+                    <li key={example}>{example}</li>
                   ))}
                 </ol>
               )}
               {entry.notes.length > 0 && (
                 <ul>
-                  {entry.notes.map((note, j) => (
-                    <li key={j}>{note}</li>
+                  {entry.notes.map((note) => (
+                    <li key={note}>{note}</li>
                   ))}
                 </ul>
               )}
@@ -53,8 +53,12 @@ export default function Word() {
               <hr />
 
               <p>
-                {entry.pronunciations.map((pronunciation, j) => (
-                  <span key={j} className={styles.ipaReading}>
+                {entry.pronunciations.map((pronunciation) => (
+                  <span
+                    key={pronunciation}
+                    className={styles.ipaReading}
+                    style={notoSans.style}
+                  >
                     {pronunciation}
                   </span>
                 ))}
@@ -62,8 +66,8 @@ export default function Word() {
               {entry.alternateForms.length > 0 && (
                 <p>
                   Also spelled as{" "}
-                  {entry.alternateForms.map((altForm, j) => (
-                    <Link key={j} href={`/words/${altForm}`}>
+                  {entry.alternateForms.map((altForm) => (
+                    <Link key={altForm} href={`/words/${altForm}`}>
                       <span>{altForm}</span>
                     </Link>
                   ))}
