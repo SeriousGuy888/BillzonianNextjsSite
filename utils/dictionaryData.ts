@@ -55,8 +55,12 @@ export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
 }
 
 export function getWord(searchWord: string) {
-  if (searchWord in allWords) {
-    return allWords[searchWord]
+  // Remove any whitespace since whitespace might be added for words starting
+  // with special characters to prevent it messing with the path.
+  const searchWordTrimmed = searchWord.trim()
+
+  if (searchWordTrimmed in allWords) {
+    return allWords[searchWordTrimmed]
   }
   return new Error("Word not found")
 }
