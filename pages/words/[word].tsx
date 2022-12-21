@@ -59,14 +59,16 @@ export default function Word() {
                   </span>
                 ))}
               </p>
-              <p>
-                Also spelled as{" "}
-                {entry.alternateForms.map((altForm, j) => (
-                  <Link key={j} href={`/words/${altForm}`}>
-                    <span>{altForm}</span>
-                  </Link>
-                ))}
-              </p>
+              {entry.alternateForms.length > 0 && (
+                <p>
+                  Also spelled as{" "}
+                  {entry.alternateForms.map((altForm, j) => (
+                    <Link key={j} href={`/words/${altForm}`}>
+                      <span>{altForm}</span>
+                    </Link>
+                  ))}
+                </p>
+              )}
             </article>
           )
         })}
