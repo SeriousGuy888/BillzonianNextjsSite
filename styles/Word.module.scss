@@ -1,34 +1,79 @@
+@import "colours";
+
 .main {
-  margin: 3rem 5vw;
+  margin: 2rem 10%;
 
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
-  ol {
-    line-height: 2em;
-
-    &.letterList {
-      list-style: lower-latin;
-    }
+  
+  h1 {
+    word-wrap: break-word;
   }
 }
 
-.entryWord {
-  h1 {
-    font-size: 5rem;
-    font-weight: 300;
-  }
+.entry {
+  background-color: $black;
+  padding: 3rem;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   p {
     display: flex;
     gap: 0.5em;
 
-    .ipaReading {
-      background-color: #616161;
-      border: 1px solid #8f8f8f;
-      padding: 0.25em 0.75em;
-      border-radius: 1em;
+    &.entryNumber {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.125em;
+      color: $theme-light;
     }
+
+    .ipaReading {
+      background-color: $dark-grey;
+      border: 1px solid $light-grey;
+      color: $text-grey;
+
+      padding: 0.5em 1em;
+      border-radius: 10em;
+    }
+  }
+
+  ol,
+  ul {
+    counter-reset: listCount;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 1em 0.5em;
+
+    & > li {
+      counter-increment: listCount;
+      display: table-row;
+
+      &::before {
+        content: counter(listCount);
+        display: table-cell;
+        text-align: right;
+        width: 0;
+
+        color: $text-grey;
+        font-family: monospace;
+      }
+    }
+
+    &.letterList li::before {
+      content: counter(listCount, lower-latin);
+    }
+  }
+  ul li::before {
+    content: "•";
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $dark-grey;
   }
 }

@@ -21,24 +21,44 @@ export default function Word() {
         <h1>{word}</h1>
         {entries.map((entry, i) => {
           return (
-            <article key={i}>
-              <p>Entry {i + 1}</p>
+            <article key={i} className={styles.entry}>
+              <p className={styles.entryNumber}>Entry {i + 1}</p>
+
               <h3>{entry.partOfSpeech}</h3>
-              <ol>
-                {entry.glosses.map((gloss, j) => (
-                  <li key={j}>{gloss}</li>
+
+              <hr />
+
+              {entry.glosses.length > 0 && (
+                <ol>
+                  {entry.glosses.map((gloss, j) => (
+                    <li key={j}>{gloss}</li>
+                  ))}
+                </ol>
+              )}
+              {entry.examples.length > 0 && (
+                <ol className={styles.letterList}>
+                  {entry.examples.map((example, j) => (
+                    <li key={j}>{example}</li>
+                  ))}
+                </ol>
+              )}
+              {entry.notes.length > 0 && (
+                <ul>
+                  {entry.notes.map((note, j) => (
+                    <li key={j}>{note}</li>
+                  ))}
+                </ul>
+              )}
+
+              <hr />
+
+              <p>
+                {entry.pronunciations.map((pronunciation, j) => (
+                  <span key={j} className={styles.ipaReading}>
+                    {pronunciation}
+                  </span>
                 ))}
-              </ol>
-              <ol>
-                {entry.examples.map((example, j) => (
-                  <li key={j}>{example}</li>
-                ))}
-              </ol>
-              <ul>
-                {entry.notes.map((note, j) => (
-                  <li key={j}>{note}</li>
-                ))}
-              </ul>
+              </p>
               <p>
                 Also spelled as{" "}
                 {entry.alternateForms.map((altForm, j) => (
