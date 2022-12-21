@@ -1,10 +1,11 @@
 @import "colours";
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap");
+
 * {
-  font-family: var(--montserrat);
+  font-family: "Montserrat", sans-serif;
   font-style: normal;
 }
-
 
 h1 {
   font-weight: 300;
@@ -19,7 +20,8 @@ h3 {
   font-size: 1.5rem;
 }
 
-p, li {
+p,
+li {
   font-weight: 400;
   font-size: 1rem;
 }
