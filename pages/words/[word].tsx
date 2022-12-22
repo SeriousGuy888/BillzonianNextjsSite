@@ -38,14 +38,6 @@ const Word: NextPage<{
     )
   }
 
-  if (router.isFallback) {
-    return (
-      <>
-        {head} <h3>Loading</h3>
-      </>
-    )
-  }
-
   return (
     <>
       {head}
@@ -153,7 +145,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
