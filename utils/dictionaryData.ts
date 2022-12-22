@@ -2,8 +2,13 @@ import { getUpdatedData, lastDataUpdate } from "./fetchGoogleSheet"
 
 const wordDataTtlMs = 1000 * 60
 export let allWords = await getUpdatedData()
+export let uniqueWordsList = Object.keys(allWords)
 
-export const uniqueWordsList = Object.keys(allWords)
+async function updateWordsData() {
+  allWords = await getUpdatedData()
+  uniqueWordsList = Object.keys(allWords)
+}
+
 export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
   const startIndex = Math.min(
     (pageNum - 1) * wordsPerPage,
@@ -24,7 +29,7 @@ export function sanitiseWord(word: string) {
 }
 export async function getWord(searchWord: string) {
   if (Date.now() - lastDataUpdate > wordDataTtlMs) {
-    allWords = await getUpdatedData()
+    updateWordsData()
   }
 
   // Remove any whitespace since whitespace might be added for words starting
