@@ -15,6 +15,7 @@ const notoSans = Noto_Sans({
   weight: "400",
   subsets: ["latin", "latin-ext"],
 })
+import { motion } from "framer-motion"
 
 const Word: NextPage<{
   entries?: DictionaryEntry[]
@@ -43,7 +44,13 @@ const Word: NextPage<{
         <h1>{word}</h1>
         {entries.map((entry, i) => {
           return (
-            <article key={entry.glosses[0]} className={styles.entry}>
+            <motion.article
+              key={entry.glosses[0]}
+              className={styles.entry}
+              initial={{ y: 50 }}
+              animate={{ y: 0 }}
+              transition={{ delay: i * 0.1 }}
+            >
               <p className={styles.entryNumber}>Entry {i + 1}</p>
 
               <h3>{entry.partOfSpeech}</h3>
@@ -107,7 +114,7 @@ const Word: NextPage<{
                   </span>
                 </p>
               )}
-            </article>
+            </motion.article>
           )
         })}
       </section>
