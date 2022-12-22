@@ -1,49 +1,7 @@
-import { DictionaryEntry } from "./../types/DictionaryTypes"
-import { SheetRow } from "../types/DictionaryTypes"
-import PublicGoogleSheetsParser from "public-google-sheets-parser"
+import { getUpdatedData, lastDataUpdate } from "./fetchGoogleSheet"
 
-export const allWords = await (async () => {
-  // https://docs.google.com/spreadsheets/d/1D1-LkiIjWox_cdvaCdYfzUaT0cnhDsHr_8pir0mlS58/edit#gid=1697954206
-  const parser = new PublicGoogleSheetsParser(
-    "1D1-LkiIjWox_cdvaCdYfzUaT0cnhDsHr_8pir0mlS58",
-    "Words",
-  )
-  console.log("fetching from google sheets")
-
-  const rows = (await parser.parse()) as SheetRow[]
-
-  if (rows.length === 0) {
-    console.error("Failed to get dictionary data!")
-    return {}
-  }
-
-  const splitEntry = (entry?: string) =>
-    (entry ?? "")
-      .split("\n") // Delimiter for entries in one spreadsheet cell
-      .filter((e) => e) // Remove empty lines
-
-  const entries = {} as { [word: string]: DictionaryEntry[] }
-  for (const row of rows) {
-    const word = row.word ?? ""
-    const entry = {
-      word,
-      partOfSpeech: row.partOfSpeech ?? "",
-      pronunciations: splitEntry(row.pronunciations),
-      glosses: splitEntry(row.glosses),
-      examples: splitEntry(row.examples),
-      notes: splitEntry(row.notes),
-      alternateForms: splitEntry(row.alternateForms),
-    }
-
-    if (!entries[word]) {
-      entries[word] = []
-    }
-
-    entries[word].push(entry)
-  }
-
-  return entries
-})()
+const wordDataTtlMs = 1000 * 60
+export let allWords = await getUpdatedData()
 
 export const uniqueWordsList = Object.keys(allWords)
 export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
@@ -64,7 +22,11 @@ export function sanitiseWord(word: string) {
   }
   return word
 }
-export function getWord(searchWord: string) {
+export async function getWord(searchWord: string) {
+  if (Date.now() - lastDataUpdate > wordDataTtlMs) {
+    allWords = await getUpdatedData()
+  }
+
   // Remove any whitespace since whitespace might be added for words starting
   // with special characters to prevent it messing with the path.
   const searchWordTrimmed = searchWord.trim()

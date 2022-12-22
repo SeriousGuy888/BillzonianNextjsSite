@@ -9,7 +9,7 @@ import styles from "../../styles/Word.module.scss"
 import { Noto_Sans } from "@next/font/google"
 import Link from "next/link"
 import Head from "next/head"
-import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { DictionaryEntry } from "../../types/DictionaryTypes"
 const notoSans = Noto_Sans({
   weight: "400",
@@ -114,7 +114,7 @@ const Word: NextPage<{
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const searchWord = context.params?.word?.toString() ?? ""
-  const foundWord = getWord(searchWord)
+  const foundWord = await getWord(searchWord)
 
   let entries = foundWord
   if (foundWord instanceof Error) {
@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: { word: searchWord, entries },
-    revalidate: 60,
+    revalidate: 30,
   }
 }
 
