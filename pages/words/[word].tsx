@@ -1,4 +1,3 @@
-import { useRouter } from "next/router"
 import {
   allWords,
   getWord,
@@ -21,7 +20,6 @@ const Word: NextPage<{
   entries?: DictionaryEntry[]
   word: string
 }> = (props) => {
-  const router = useRouter()
   const { word, entries } = props
 
   const head = (
