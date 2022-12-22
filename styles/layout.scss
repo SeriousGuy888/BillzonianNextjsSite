@@ -50,16 +50,19 @@
 }
 
 @media only screen and (max-width: 799px) {
+  $navbar-height: 6rem;
+
   nav {
+    height: $navbar-height;
+    width: 100vw;
+    bottom: 0;
+
     border-top: 0.5rem solid $dark-grey;
 
     padding-top: 0;
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-
-    bottom: 0;
-    width: 100vw;
 
     justify-content: center;
 
@@ -87,6 +90,12 @@
         }
       }
     }
+  }
+
+  main {
+    height: calc(100vh - $navbar-height);
+    margin-bottom: $navbar-height;
+    padding: 2rem;
   }
 }
 
@@ -132,6 +141,8 @@
   }
 
   main {
+    height: 100vh;
     margin-left: $sidebar-width;
+    padding: 5rem;
   }
 }
