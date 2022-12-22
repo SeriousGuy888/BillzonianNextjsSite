@@ -1,23 +1,54 @@
 import { useRouter } from "next/router"
-import { getWord } from "../../utils/dictionaryData"
+import {
+  getWord,
+  sanitiseWord,
+  uniqueWordsList,
+} from "../../utils/dictionaryData"
 import styles from "../../styles/Word.module.scss"
 
 import { Noto_Sans } from "@next/font/google"
 import Link from "next/link"
-const notoSans = Noto_Sans({ weight: "400" })
+import Head from "next/head"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next"
+import { DictionaryEntry } from "../../types/DictionaryTypes"
+const notoSans = Noto_Sans({
+  weight: "400",
+  subsets: ["latin", "latin-ext"],
+})
 
-export default function Word() {
+const Word: NextPage<{
+  entries?: DictionaryEntry[]
+  word: string
+}> = (props) => {
   const router = useRouter()
-  const { word } = router.query
-  const entries = getWord(word?.toString() ?? "")
+  const { word, entries } = props
 
-  if (entries instanceof Error) {
-    return <p>Word not found.</p>
+  const head = (
+    <Head>
+      <title>{`${word} - Billzonian`}</title>
+    </Head>
+  )
+
+  if (!entries?.length) {
+    return (
+      <>
+        {head} <h3>Word not found.</h3>
+      </>
+    )
+  }
+
+  if (router.isFallback) {
+    return (
+      <>
+        {head} <h3>Loading</h3>
+      </>
+    )
   }
 
   return (
-    <section className={styles.main}>
-      <>
+    <>
+      {head}
+      <section className={styles.main}>
         <h1>{word}</h1>
         {entries.map((entry, i) => {
           return (
@@ -76,7 +107,37 @@ export default function Word() {
             </article>
           )
         })}
-      </>
-    </section>
+      </section>
+    </>
   )
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const searchWord = context.params?.word?.toString() ?? ""
+  const foundWord = getWord(searchWord)
+
+  let entries = foundWord
+  if (foundWord instanceof Error) {
+    entries = []
+  }
+
+  return {
+    props: { word: searchWord, entries },
+    revalidate: 60,
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = uniqueWordsList.map((word) => ({
+    params: {
+      word: sanitiseWord(word),
+    },
+  }))
+
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export default Word

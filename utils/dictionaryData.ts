@@ -45,15 +45,25 @@ export const allWords = await (async () => {
   return entries
 })()
 
-const wordsOnly = Object.keys(allWords)
+export const uniqueWordsList = Object.keys(allWords)
 export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
   const startIndex = Math.min(
     (pageNum - 1) * wordsPerPage,
-    wordsOnly.length - 1,
+    uniqueWordsList.length - 1,
   )
-  return wordsOnly.slice(startIndex, startIndex + wordsPerPage)
+  return uniqueWordsList.slice(startIndex, startIndex + wordsPerPage)
 }
 
+/**
+ * Add space to start if word begins with a period because the period
+ * can mess with the routing D:
+ */
+export function sanitiseWord(word: string) {
+  if (word.startsWith(".")) {
+    return ` ${word}`
+  }
+  return word
+}
 export function getWord(searchWord: string) {
   // Remove any whitespace since whitespace might be added for words starting
   // with special characters to prevent it messing with the path.

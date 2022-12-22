@@ -1,15 +1,11 @@
 import type { NextPage } from "next"
 import Link from "next/link"
 import styles from "../../../styles/Wordlist.module.scss"
+import { sanitiseWord } from "../../../utils/dictionaryData"
 
 const WordPreview: NextPage<{ word: string }> = ({ word }) => {
-  let wordPath = word
-  if (word.startsWith(".")) {
-    wordPath = ` ${word}` // Add a space because the period at the start messes with routes
-  }
-
   return (
-    <Link href={`/words/${encodeURI(wordPath)}`}>
+    <Link href={`/words/${sanitiseWord(word)}`}>
       <div className={styles.wordLink}>
         <h3>{word}</h3>
       </div>
