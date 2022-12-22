@@ -83,25 +83,27 @@ const Word: NextPage<{
 
               <hr />
 
-              <p>
+              <p className={styles.pronunciationList}>
                 {entry.pronunciations.map((pronunciation) => (
                   <span
                     key={pronunciation}
                     className={styles.ipaReading}
                     style={notoSans.style}
                   >
-                    {pronunciation}
+                    /{pronunciation}/
                   </span>
                 ))}
               </p>
               {entry.alternateForms.length > 0 && (
                 <p>
-                  Also spelled as{" "}
-                  {entry.alternateForms.map((altForm) => (
-                    <Link key={altForm} href={`/words/${altForm}`}>
-                      <span>{altForm}</span>
-                    </Link>
-                  ))}
+                  Alternate forms / spellings:{" "}
+                  <span className={styles.altForms}>
+                    {entry.alternateForms.map((altForm) => (
+                      <span key={altForm}>
+                        <Link href={`/words/${altForm}`}>{altForm}</Link>
+                      </span>
+                    ))}
+                  </span>
                 </p>
               )}
             </article>
