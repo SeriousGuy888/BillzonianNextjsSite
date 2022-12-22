@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import {
+  allWords,
   getWord,
   sanitiseWord,
   uniqueWordsList,
@@ -100,7 +101,17 @@ const Word: NextPage<{
                   <span className={styles.altForms}>
                     {entry.alternateForms.map((altForm) => (
                       <span key={altForm}>
-                        <Link href={`/words/${altForm}`}>{altForm}</Link>
+                        <Link
+                          href={`/words/${altForm}`}
+                          className={wordExists(altForm) ? "" : "redLink"}
+                          title={
+                            wordExists(altForm)
+                              ? ""
+                              : "This page does not exist."
+                          }
+                        >
+                          {altForm}
+                        </Link>
                       </span>
                     ))}
                   </span>
@@ -112,6 +123,10 @@ const Word: NextPage<{
       </section>
     </>
   )
+}
+
+const wordExists = (word: string) => {
+  return word in allWords
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
