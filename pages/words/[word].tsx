@@ -1,5 +1,5 @@
 import {
-  allWords,
+  allWordData,
   getWord,
   sanitiseWord,
   uniqueWordsList,
@@ -123,7 +123,7 @@ const Word: NextPage<{
 }
 
 const wordExists = (word: string) => {
-  return word in allWords
+  return word in allWordData
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

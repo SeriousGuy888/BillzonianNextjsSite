@@ -1,12 +1,12 @@
 import { getUpdatedData, lastDataUpdate } from "./fetchGoogleSheet"
 
 const wordDataTtlMs = 1000 * 60
-export let allWords = await getUpdatedData()
-export let uniqueWordsList = Object.keys(allWords)
+export let allWordData = await getUpdatedData()
+export let uniqueWordsList = Object.keys(allWordData)
 
 async function updateWordsData() {
-  allWords = await getUpdatedData()
-  uniqueWordsList = Object.keys(allWords)
+  allWordData = await getUpdatedData()
+  uniqueWordsList = Object.keys(allWordData)
 }
 
 export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
@@ -36,8 +36,8 @@ export async function getWord(searchWord: string) {
   // with special characters to prevent it messing with the path.
   const searchWordTrimmed = searchWord.trim()
 
-  if (searchWordTrimmed in allWords) {
-    return allWords[searchWordTrimmed]
+  if (searchWordTrimmed in allWordData) {
+    return allWordData[searchWordTrimmed]
   }
   return new Error("Word not found")
 }

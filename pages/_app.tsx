@@ -5,7 +5,9 @@ import type { AppProps } from "next/app"
 import { AnimatePresence, motion, MotionConfig } from "framer-motion"
 
 import Nav from "../components/elements/nav/Nav"
+import SearchBar from "../components/elements/search/SearchBar"
 import Router, { useRouter } from "next/router"
+import { allWordData } from "../utils/dictionaryData"
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -21,6 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
+            <SearchBar
+              placeholder="Search for a Billzonian word..."
+              data={Object.values(allWordData)}
+            />
             <Component {...pageProps} />
           </motion.main>
         </div>
