@@ -28,5 +28,13 @@ li {
 
 a {
   text-decoration: none;
-  color: $accent;
+
+  color: $green;
+  &.redLink {
+    color: $red;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
