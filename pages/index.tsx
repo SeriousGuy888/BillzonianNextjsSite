@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
 
       <div className={styles.centerpiece}>
-        <LogoNoFill width="15rem" height="15rem" />
+        <LogoNoFill width="auto" height="20vh" />
         <h2>Billzonian</h2>
         <p>A pretty cool fork of English</p>
       </div>
