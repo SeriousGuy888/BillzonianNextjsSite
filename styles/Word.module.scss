@@ -1,4 +1,5 @@
 @import "colours";
+@import "typography_mixins";
 
 .main {
   display: flex;
@@ -22,9 +23,7 @@
 
   p {
     &.entryNumber {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.125em;
+      @include label-text;
       color: $theme-light;
     }
 
@@ -78,10 +77,5 @@
   }
   ul li::before {
     content: "•";
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid $dark-grey;
   }
 }

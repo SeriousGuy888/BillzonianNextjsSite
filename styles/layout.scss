@@ -20,7 +20,7 @@
           display: flex;
           align-items: center;
           gap: 1rem;
-          
+
           text-decoration: none;
 
           svg {
@@ -48,6 +48,11 @@
         }
       }
     }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid $dark-grey;
   }
 }
 
@@ -78,7 +83,7 @@
 
       .navItem {
         border-radius: 0 0 2em 2em;
-        
+
         flex: 1;
         gap: 2rem;
 
