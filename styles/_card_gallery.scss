@@ -1,0 +1,25 @@
+@import "colours";
+
+@mixin card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+@mixin card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  background-color: $black;
+  padding: 3rem;
+  border-radius: 10px;
+
+  color: $white;
+
+  &:hover {
+    h3 {
+      color: $theme-light;
+    }
+  }
+}

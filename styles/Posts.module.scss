@@ -1,0 +1,31 @@
+@import "colours";
+@import "typography_mixins";
+@import "card_gallery";
+
+.postGrid {
+  @include card-grid;
+
+  .cardContainer {
+    display: flex;
+
+    .card {
+      @include card;
+      flex: 1;
+
+      .title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .date {
+        @include label-text;
+        color: $text-grey;
+      }
+
+      .excerpt {
+        color: $text-grey;
+      }
+    }
+  }
+}
