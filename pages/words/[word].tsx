@@ -23,23 +23,33 @@ const Word: NextPage<{
 }> = (props) => {
   const { word, entries } = props
 
-  const head = (
-    <Head>
-      <title>{`${word} - Billzonian`}</title>
-    </Head>
-  )
-
   if (!entries?.length) {
     return (
       <>
-        {head} <h3>Word not found.</h3>
+        <Head>
+          <title>Word not found</title>
+        </Head>
+        <h3>Word not found</h3>
       </>
     )
   }
 
+  const title = `${word} - Billzonian`
   return (
     <>
-      {head}
+      <Head>
+        <title>{title}</title>
+
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={
+            entries[0].glosses.map((g, i) => `${i + 1}. ${g}`).join("\n") +
+            "\n\n..."
+          }
+        />
+      </Head>
+
       <section className={styles.main}>
         <h1>{word}</h1>
         {entries.map((entry, i) => {
