@@ -21,7 +21,7 @@ export default function Nav() {
         <NavItem href="/words" label="Dictionary">
           <BookIcon />
         </NavItem>
-        <NavItem href="/info" label="Info">
+        <NavItem href="/posts" label="Posts">
           <InfoIcon />
         </NavItem>
         <NavItem href="/search" label="Search">
