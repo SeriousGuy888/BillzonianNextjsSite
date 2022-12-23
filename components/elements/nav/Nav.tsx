@@ -1,6 +1,10 @@
-import Link from "next/link"
 import NavItem from "./NavItem"
-import { BookIcon, HomeIcon, InfoIcon, SearchIcon } from "../../svgs/icons"
+
+import HomeIcon from "@mui/icons-material/HomeRounded"
+import BookIcon from "@mui/icons-material/MenuBookRounded"
+import ArticleIcon from "@mui/icons-material/ArticleRounded"
+import SearchIcon from "@mui/icons-material/SearchRounded"
+
 import { LogoCircle } from "../../svgs/logos"
 
 export default function Nav() {
@@ -22,7 +26,7 @@ export default function Nav() {
           <BookIcon />
         </NavItem>
         <NavItem href="/posts" label="Posts">
-          <InfoIcon />
+          <ArticleIcon />
         </NavItem>
         <NavItem href="/search" label="Search">
           <SearchIcon />

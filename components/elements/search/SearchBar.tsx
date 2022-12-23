@@ -3,7 +3,7 @@ import { NextPage } from "next/types"
 import { ChangeEvent, useState } from "react"
 import styles from "../../../styles/Search.module.scss"
 import { DictionaryEntry } from "../../../types/DictionaryTypes"
-import { SearchIcon } from "../../svgs/icons"
+import SearchIcon from "@mui/icons-material/SearchRounded"
 
 interface PageProps {
   placeholder: string
