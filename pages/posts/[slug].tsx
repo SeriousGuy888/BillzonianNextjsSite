@@ -4,7 +4,7 @@ import { BlogPost, getAllPostSlugs, getPost } from "../../utils/posts"
 const Post: NextPage<BlogPost> = ({ frontMatter, content }) => {
   return (
     <>
-      <h1>{frontMatter.title}</h1>
+      <h1>{frontMatter?.title ?? "Untitled Post"}</h1>
       <article>{content}</article>
     </>
   )
