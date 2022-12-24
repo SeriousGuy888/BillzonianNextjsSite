@@ -17,7 +17,7 @@ interface SearchCache {
 const searchCacheTtl = 1000 * 60 * 5 // 5 minutes
 const cachePath = path.resolve(`./cache/search.json`)
 
-export const getSearchCache = async (): Promise<SearchableItem[]> => {
+export const getSearchCache = (): SearchableItem[] => {
   if (fs.existsSync(cachePath)) {
     const fileContents = fs.readFileSync(cachePath, { encoding: "utf8" })
     const cache = JSON.parse(fileContents) as SearchCache
