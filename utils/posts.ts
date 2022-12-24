@@ -4,40 +4,56 @@ import matter from "gray-matter"
 
 export interface BlogPost {
   slug: string
-  excerpt?: string
-  metadata: {
-    title?: string
-    date?: string
-    image?: string
-  }
+  frontMatter: FrontMatter
+  content?: string
 }
 
-export const readPostsData = () => {
-  const postsDir = path.join(process.cwd(), "posts")
-  const fileNames = fs.readdirSync(postsDir)
+interface FrontMatter {
+  title?: string
+  date?: string
+  image?: string
+  excerpt?: string
+  tags?: string[]
+}
 
-  const posts = fileNames.map((fileName): BlogPost => {
-    const slug = fileName.replace(/.md$/g, "")
-    const markdownWithMeta = fs.readFileSync(
-      path.join(postsDir, fileName),
-      "utf8",
-    )
+const dirName = "posts"
 
-    function firstFourLines(file: any, options: any) {
-      file.excerpt = file.content.slice(0, 200)
-      return "i dont know why i need to return a string here"
-    }
+const getSlug = (fileName: string) => fileName.replace(/\.md$/, "")
 
-    const { data, excerpt } = matter(markdownWithMeta, {
-      excerpt: firstFourLines,
-    })
+const goodifyFrontMatter = (frontMatter: FrontMatter) =>
+  JSON.parse(JSON.stringify(frontMatter))
+
+export const getAllPostSlugs = (): { params: { slug: string } }[] => {
+  const fileNames = fs.readdirSync(dirName)
+  return fileNames.map((fileName) => ({
+    params: {
+      slug: getSlug(fileName),
+    },
+  }))
+}
+
+export const getPosts = (): BlogPost[] => {
+  const fileNames = fs.readdirSync(dirName)
+
+  return fileNames.map((fileName) => {
+    const slug = getSlug(fileName)
+    const readFiles = fs.readFileSync(path.join(dirName, fileName))
+    const { data } = matter(readFiles)
 
     return {
       slug,
-      excerpt,
-      metadata: JSON.parse(JSON.stringify(data)), // allows Date objects to be serialised
+      frontMatter: goodifyFrontMatter(data),
     }
   })
+}
 
-  return posts
+export const getPost = (slug: string): BlogPost => {
+  const file = fs.readFileSync(path.join(dirName, `${slug}.md`))
+  const { data, content } = matter(file)
+
+  return {
+    slug,
+    frontMatter: goodifyFrontMatter(data),
+    content
+  }
 }

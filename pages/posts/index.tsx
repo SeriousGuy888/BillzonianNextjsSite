@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from "next/types"
-import { BlogPost, readPostsData } from "../../utils/posts"
+import { BlogPost, getPosts } from "../../utils/posts"
 import styles from "../../styles/Posts.module.scss"
 import Link from "next/link"
 
@@ -18,19 +18,19 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
         >
           <div className={styles.card}>
             <div>
-              <h3>{post.metadata.title}</h3>
+              <h3>{post.frontMatter.title}</h3>
 
-              {post.metadata.date && (
+              {post.frontMatter.date && (
                 <p className={styles.date}>
-                  {post.metadata.date.split("T")[0]}
+                  {post.frontMatter.date.split("T")[0]}
                 </p>
               )}
             </div>
 
-            {post.excerpt && (
+            {post.frontMatter.excerpt && (
               <>
                 <hr />
-                <p className={styles.excerpt}>{post.excerpt}</p>
+                <p className={styles.excerpt}>{post.frontMatter.excerpt}</p>
               </>
             )}
           </div>
@@ -41,7 +41,7 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
-  const posts = readPostsData()
+  const posts = getPosts()
 
   return {
     props: {
