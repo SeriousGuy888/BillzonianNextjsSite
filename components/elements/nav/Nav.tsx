@@ -5,7 +5,7 @@ import BookIcon from "@mui/icons-material/MenuBookRounded"
 import ArticleIcon from "@mui/icons-material/ArticleRounded"
 import SearchIcon from "@mui/icons-material/SearchRounded"
 
-import { LogoCircle } from "../../svgs/logos"
+import { LogoCircle } from "../../logos"
 
 export default function Nav() {
   return (

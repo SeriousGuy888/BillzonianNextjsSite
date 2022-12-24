@@ -1,6 +1,6 @@
 import Head from "next/head"
 import styles from "../styles/Home.module.scss"
-import { LogoNoFill } from "../components/svgs/logos"
+import { LogoNoFill } from "../components/logos"
 
 export default function Home() {
   return (
