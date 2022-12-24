@@ -56,6 +56,14 @@
     border: none;
     border-top: 1px solid $dark-grey;
   }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    
+    max-height: 100%;
+    min-height: 100vh;
+  }
 }
 
 @media only screen and (max-width: 799px) {
@@ -102,7 +110,6 @@
   }
 
   main {
-    height: calc(100vh - $navbar-height);
     margin-bottom: $navbar-height;
     padding: 2rem;
   }
@@ -150,7 +157,6 @@
   }
 
   main {
-    height: 100vh;
     margin-left: $sidebar-width;
     padding: 5rem;
   }
