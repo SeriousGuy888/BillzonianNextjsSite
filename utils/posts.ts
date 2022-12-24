@@ -1,3 +1,4 @@
+import { SearchableItem } from "./searchCaching"
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
@@ -32,7 +33,7 @@ export const getAllPostSlugs = (): { params: { slug: string } }[] => {
   }))
 }
 
-export const getPosts = (): BlogPost[] => {
+export const getAllPostMetadata = (): BlogPost[] => {
   const fileNames = fs.readdirSync(dirName)
 
   return fileNames.map((fileName) => {
@@ -54,6 +55,26 @@ export const getPost = (slug: string): BlogPost => {
   return {
     slug,
     frontMatter: goodifyFrontMatter(data),
-    content
+    content,
   }
+}
+
+export const getAllPostsAsSearchables = (): SearchableItem[] => {
+  const posts = getAllPostMetadata()
+  const searchables: SearchableItem[] = []
+
+  posts.forEach((post) => {
+    const { excerpt, tags, title } = post.frontMatter
+    const searchableText = `${post.slug} ${excerpt ?? ""} ${
+      tags?.join(" ") ?? ""
+    } ${title ?? ""}`.toLowerCase()
+
+    searchables.push({
+      linkPath: `/posts/${post.slug}`,
+      title: title ?? "Untitled Post",
+      searchableText,
+    })
+  })
+
+  return searchables
 }

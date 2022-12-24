@@ -1,4 +1,5 @@
 import { getUpdatedData, lastDataUpdate } from "./fetchGoogleSheet"
+import { SearchableItem } from "./searchCaching"
 
 const wordDataTtlMs = 1000 * 60
 export let allWordData = await getUpdatedData()
@@ -40,4 +41,29 @@ export async function getWord(searchWord: string) {
     return allWordData[searchWordTrimmed]
   }
   return new Error("Word not found")
+}
+
+export const getAllWordsAsSearchables = (): SearchableItem[] => {
+  const words = allWordData
+  const items: SearchableItem[] = []
+
+  for (const wordName in words) {
+    const entries = words[wordName]
+
+    let searchableText = `${wordName}`
+    entries.forEach((entry) => {
+      searchableText += " " + entry.glosses.join(" ")
+      searchableText += " " + entry.pronunciations.join(" ")
+      searchableText += " " + entry.alternateForms.join(" ")
+    })
+    searchableText = searchableText.toLowerCase()
+
+    items.push({
+      linkPath: `words/${wordName}`,
+      title: wordName,
+      searchableText,
+    })
+  }
+
+  return items
 }

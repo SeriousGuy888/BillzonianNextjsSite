@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from "next/types"
-import { BlogPost, getPosts } from "../../utils/posts"
+import { BlogPost, getAllPostMetadata } from "../../utils/posts"
 import styles from "../../styles/Posts.module.scss"
 import Link from "next/link"
 
@@ -41,7 +41,7 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
-  const posts = getPosts()
+  const posts = getAllPostMetadata()
 
   return {
     props: {
