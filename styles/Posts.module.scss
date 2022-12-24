@@ -6,17 +6,10 @@
   @include card-grid;
 
   .cardContainer {
-    display: flex;
+    @include card-container;
 
     .card {
       @include card;
-      flex: 1;
-
-      .title {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
 
       .date {
         @include label-text;

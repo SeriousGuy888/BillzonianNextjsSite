@@ -5,8 +5,11 @@ import { sanitiseWord } from "../../../utils/dictionaryData"
 
 const WordPreview: NextPage<{ word: string }> = ({ word }) => {
   return (
-    <Link href={`/words/${sanitiseWord(word)}`}>
-      <div className={styles.wordLink}>
+    <Link
+      className={styles.cardContainer}
+      href={`/words/${sanitiseWord(word)}`}
+    >
+      <div className={styles.card}>
         <h3>{word}</h3>
       </div>
     </Link>

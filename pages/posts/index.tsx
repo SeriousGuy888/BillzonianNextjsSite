@@ -18,7 +18,7 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
         >
           <div className={styles.card}>
             <div>
-              <h3 className={styles.title}>{post.metadata.title}</h3>
+              <h3>{post.metadata.title}</h3>
 
               {post.metadata.date && (
                 <p className={styles.date}>

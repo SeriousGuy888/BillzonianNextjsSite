@@ -4,11 +4,11 @@
 .wordList {
   @include card-grid;
 
-  .wordLink {
-    @include card;
+  .cardContainer {
+    @include card-container;
 
-    h3 {
-      word-wrap: break-word;
+    .card {
+      @include card;
     }
   }
 }
