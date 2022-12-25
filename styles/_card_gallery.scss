@@ -35,4 +35,9 @@
       color: $theme-light;
     }
   }
+
+  p {
+    @extend h3;
+    color: $text-grey;
+  }
 }

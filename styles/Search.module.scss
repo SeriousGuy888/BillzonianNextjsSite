@@ -1,9 +1,13 @@
 @import "colours";
+@import "card_gallery";
 
 .search {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  
   width: 100%;
   margin-bottom: 2rem;
-  position: relative;
 
   .searchInputs {
     display: flex;
@@ -35,25 +39,15 @@
     }
   }
 
-  .dataResults {
-    position: absolute;
-    display: grid;
-    width: inherit;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  .results {
+    @include card-grid;
 
-    background-color: $black;
-    padding: 1rem;
-    gap: 1rem;
-    border: 2px solid $light-grey;
-    border-radius: 0 0 10px 10px;
-    margin-top: -2px;
+    .itemContainer {
+      @include card-container;
 
-    .dataItem {
-      background-color: $dark-grey;
-      overflow: hidden;
-      padding: 0.75rem;
-      border-radius: 10px;
-      text-align: center;
+      .item {
+        @include card;
+      }
     }
   }
 }

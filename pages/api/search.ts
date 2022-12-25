@@ -2,7 +2,7 @@ import { SearchableItem } from "./../../utils/searchCaching"
 import { NextApiRequest, NextApiResponse } from "next"
 import { getSearchCache } from "../../utils/searchCaching"
 
-type SearchResult = Omit<SearchableItem, "searchableText">
+export type SearchResult = Omit<SearchableItem, "searchableText">
 interface SearchResultData {
   results: SearchResult[]
 }
@@ -11,9 +11,11 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<SearchResultData>,
 ) {
-  const searchTerm = req.query.q?.toString() ?? ""
+  const searchTerm = (req.query.q?.toString() ?? "").trim()
 
-  console.log(searchTerm)
+  if (!searchTerm) {
+    res.status(400).json({ results: [] })
+  }
 
   const cache = getSearchCache()
   const results: SearchResult[] = []

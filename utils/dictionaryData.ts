@@ -59,7 +59,7 @@ export const getAllWordsAsSearchables = (): SearchableItem[] => {
     searchableText = searchableText.toLowerCase()
 
     items.push({
-      linkPath: `words/${wordName}`,
+      linkPath: `words/${sanitiseWord(wordName)}`,
       title: wordName,
       searchableText,
     })
