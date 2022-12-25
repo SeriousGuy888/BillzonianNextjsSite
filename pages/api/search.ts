@@ -1,6 +1,5 @@
-import { SearchableItem } from "./../../utils/searchCaching"
 import { NextApiRequest, NextApiResponse } from "next"
-import { getSearchCache } from "../../utils/searchCaching"
+import { SearchableItem, getSearchCache } from "../../utils/searchCaching"
 
 export type SearchResult = Omit<SearchableItem, "searchableText">
 interface SearchResultData {

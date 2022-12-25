@@ -17,7 +17,7 @@ interface FrontMatter {
   tags?: string[]
 }
 
-const dirName = "posts"
+const postsDir = path.resolve("posts")
 
 const getSlug = (fileName: string) => fileName.replace(/\.md$/, "")
 
@@ -25,7 +25,7 @@ const goodifyFrontMatter = (frontMatter: FrontMatter) =>
   JSON.parse(JSON.stringify(frontMatter))
 
 export const getAllPostSlugs = (): { params: { slug: string } }[] => {
-  const fileNames = fs.readdirSync(dirName)
+  const fileNames = fs.readdirSync(postsDir)
   return fileNames.map((fileName) => ({
     params: {
       slug: getSlug(fileName),
@@ -34,11 +34,11 @@ export const getAllPostSlugs = (): { params: { slug: string } }[] => {
 }
 
 export const getAllPostMetadata = (): BlogPost[] => {
-  const fileNames = fs.readdirSync(dirName)
+  const fileNames = fs.readdirSync(postsDir)
 
   return fileNames.map((fileName) => {
     const slug = getSlug(fileName)
-    const readFiles = fs.readFileSync(path.join(dirName, fileName))
+    const readFiles = fs.readFileSync(path.join(postsDir, fileName))
     const { data } = matter(readFiles)
 
     return {
@@ -49,7 +49,7 @@ export const getAllPostMetadata = (): BlogPost[] => {
 }
 
 export const getPost = (slug: string): BlogPost => {
-  const file = fs.readFileSync(path.join(dirName, `${slug}.md`))
+  const file = fs.readFileSync(path.join(postsDir, `${slug}.md`))
   const { data, content } = matter(file)
 
   return {
