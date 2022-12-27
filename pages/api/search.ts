@@ -21,11 +21,12 @@ export default function handler(
 
   if (!searchTerm) {
     res.status(400).json({ results: [] })
+    return
   }
 
-  const cache = getCache<SearchableItem>("search")
+  const searchCache = getCache()
   const results: SearchResult[] = []
-  cache.forEach((item) => {
+  searchCache.forEach((item) => {
     if (!item.searchableText.includes(searchTerm)) return
 
     results.push({
