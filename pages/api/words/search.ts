@@ -1,9 +1,9 @@
-import { DictionaryEntry } from "./../../../types/DictionaryTypes"
-import { getCache } from "../../../utils/searchCaching"
+import { cachedWordData } from "../../../utils/dictionaryData"
+import { WordCollection } from "../../../types/DictionaryTypes"
 import { NextApiRequest, NextApiResponse } from "next"
 
 interface SearchResultData {
-  results: DictionaryEntry[][]
+  results: WordCollection
 }
 
 export default function handler(
@@ -13,19 +13,19 @@ export default function handler(
   const searchTerm = (req.query.q?.toString() ?? "").trim()
 
   if (!searchTerm) {
-    res.status(400).json({ results: [] })
+    res.status(400).json({ results: {} })
     return
   }
 
-  const cache = getCache<DictionaryEntry[]>("words")
-  const results = cache.filter((entries) => {
-    return entries.some(
-      (entry) =>
-        entry.word.includes(searchTerm) ||
-        entry.glosses.includes(searchTerm) ||
-        entry.alternateForms.includes(searchTerm),
-    )
-  })
+  const results = Object.entries(cachedWordData).filter(
+    ([wordName, wordData]) =>
+      wordName.includes(searchTerm) ||
+      wordData.some(
+        (entry) =>
+          entry.glosses.includes(searchTerm) ||
+          entry.alternateForms.includes(searchTerm),
+      ),
+  )
 
-  res.status(200).json({ results })
+  res.status(200).json({ results: Object.fromEntries(results) })
 }
