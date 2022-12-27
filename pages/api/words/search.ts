@@ -1,9 +1,11 @@
-import { cachedWordData } from "../../../utils/dictionaryData"
+import { cachedWordData, uniqueWordsList } from "../../../utils/dictionaryData"
 import { WordCollection } from "../../../types/DictionaryTypes"
 import { NextApiRequest, NextApiResponse } from "next"
+import { didYouMean } from "../../../utils/similarStringFinder"
 
 interface SearchResultData {
   results: WordCollection
+  similarWords?: string[]
 }
 
 export default function handler(
@@ -26,6 +28,12 @@ export default function handler(
           entry.alternateForms.includes(searchTerm),
       ),
   )
+
+  if (!results.length) {
+    const similarWords = didYouMean(searchTerm, uniqueWordsList, 10)
+    res.status(404).json({ results: {}, similarWords })
+    return
+  }
 
   res.status(200).json({ results: Object.fromEntries(results) })
 }
