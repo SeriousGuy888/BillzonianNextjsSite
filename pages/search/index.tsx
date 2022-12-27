@@ -3,14 +3,13 @@ import React, {
   ChangeEvent,
   MouseEvent,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from "react"
-import { getSearchCache } from "../../utils/searchCaching"
-import { SearchResult } from "../api/search"
+import { SearchableItem, SearchResult } from "../api/search"
 import SearchIcon from "@mui/icons-material/SearchRounded"
 import styles from "../../styles/Search.module.scss"
+import { getCache } from "../../utils/cacheManager"
 
 const Search = () => {
   const searchBoxRef = useRef(
@@ -75,7 +74,7 @@ const Search = () => {
 }
 
 export async function getStaticProps() {
-  getSearchCache()
+  getCache<SearchableItem>("search")
 
   return {
     props: {},

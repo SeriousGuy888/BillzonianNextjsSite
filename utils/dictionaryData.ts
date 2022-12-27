@@ -1,5 +1,5 @@
+import { SearchableItem } from "../pages/api/search"
 import { getUpdatedData, lastDataUpdate } from "./fetchGoogleSheet"
-import { SearchableItem } from "./searchCaching"
 
 const wordDataTtlMs = 1000 * 60
 export let allWordData = await getUpdatedData()

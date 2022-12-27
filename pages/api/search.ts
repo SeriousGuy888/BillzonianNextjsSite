@@ -1,7 +1,14 @@
+import { getCache } from "./../../utils/cacheManager"
 import { NextApiRequest, NextApiResponse } from "next"
-import { SearchableItem, getSearchCache } from "../../utils/searchCaching"
+
+export interface SearchableItem {
+  linkPath: string
+  title: string
+  searchableText: string // the string that the search term will be compared against
+}
 
 export type SearchResult = Omit<SearchableItem, "searchableText">
+
 interface SearchResultData {
   results: SearchResult[]
 }
@@ -16,7 +23,7 @@ export default function handler(
     res.status(400).json({ results: [] })
   }
 
-  const cache = getSearchCache()
+  const cache = getCache<SearchableItem>("search")
   const results: SearchResult[] = []
   cache.forEach((item) => {
     if (!item.searchableText.includes(searchTerm)) return
