@@ -14,6 +14,7 @@ export default function handler(
 
   if (!searchTerm) {
     res.status(400).json({ results: [] })
+    return
   }
 
   const cache = getCache<DictionaryEntry[]>("words")
