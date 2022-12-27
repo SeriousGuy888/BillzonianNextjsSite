@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import { getAllWordsAsSearchables } from "./dictionaryData"
+import { allWordData, getAllWordsAsSearchables } from "./dictionaryData"
 import { getAllPostsAsSearchables } from "./posts"
 
 type CacheName = "search" | "words"
@@ -39,7 +39,7 @@ const updateCache = <Type>(cacheName: CacheName): Type[] => {
       items.push(...(getAllWordsAsSearchables() as Type[]))
       break
     case "words":
-      items.push({} as Type)
+      items.push(...Object.values(allWordData) as Type[])
   }
 
   const jsonString = JSON.stringify({
