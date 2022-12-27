@@ -35,5 +35,5 @@ export default function handler(
     })
   })
 
-  res.status(200).json({ results })
+  res.status(results.length ? 200 : 404).json({ results })
 }
