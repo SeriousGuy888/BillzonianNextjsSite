@@ -1,7 +1,7 @@
-import { SearchableItem } from "./searchCaching"
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
+import { SearchableItem } from "../pages/api/search"
 
 export interface BlogPost {
   slug: string

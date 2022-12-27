@@ -33,6 +33,8 @@ export async function getWord(searchWord: string) {
     updateWordsData()
   }
 
+  // Remove any whitespace since whitespace might be added for words starting
+  // with special characters to prevent it messing with the path.
   const searchWordTrimmed = searchWord.trim()
 
   if (searchWordTrimmed in allWordData) {
