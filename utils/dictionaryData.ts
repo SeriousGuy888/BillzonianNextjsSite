@@ -1,13 +1,14 @@
+import { Word } from "./../types/DictionaryTypes"
 import { SearchableItem } from "../pages/api/search"
 import { getUpdatedData, lastDataUpdate } from "./fetchGoogleSheet"
 
-const wordDataTtlMs = 1000 * 60
-export let allWordData = await getUpdatedData()
-export let uniqueWordsList = Object.keys(allWordData)
+const wordDataTtlMs = 1000 * 60 * 2.5
 
+export let cachedWordData = await getUpdatedData()
+export let uniqueWordsList = Object.keys(cachedWordData)
 async function updateWordsData() {
-  allWordData = await getUpdatedData()
-  uniqueWordsList = Object.keys(allWordData)
+  cachedWordData = await getUpdatedData()
+  uniqueWordsList = Object.keys(cachedWordData)
 }
 
 export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
@@ -22,13 +23,14 @@ export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
  * Add space to start if word begins with a period because the period
  * can mess with the routing D:
  */
-export function sanitiseWord(word: string) {
+export function padWord(word: string) {
   if (word.startsWith(".")) {
-    return ` ${word}`
+    return " " + word
   }
   return word
 }
-export async function getWord(searchWord: string) {
+
+export function getWord(searchWord: string): Word {
   if (Date.now() - lastDataUpdate > wordDataTtlMs) {
     updateWordsData()
   }
@@ -37,14 +39,14 @@ export async function getWord(searchWord: string) {
   // with special characters to prevent it messing with the path.
   const searchWordTrimmed = searchWord.trim()
 
-  if (searchWordTrimmed in allWordData) {
-    return allWordData[searchWordTrimmed]
+  if (searchWordTrimmed in cachedWordData) {
+    return cachedWordData[searchWordTrimmed]
   }
   return []
 }
 
 export const getAllWordsAsSearchables = (): SearchableItem[] => {
-  const words = allWordData
+  const words = cachedWordData
   const items: SearchableItem[] = []
 
   for (const wordName in words) {
@@ -59,7 +61,7 @@ export const getAllWordsAsSearchables = (): SearchableItem[] => {
     searchableText = searchableText.toLowerCase()
 
     items.push({
-      linkPath: `words/${sanitiseWord(wordName)}`,
+      linkPath: `words/${padWord(wordName)}`,
       title: wordName,
       searchableText,
     })

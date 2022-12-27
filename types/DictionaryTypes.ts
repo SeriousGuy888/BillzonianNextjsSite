@@ -1,4 +1,4 @@
-export interface SheetRow {
+export interface DictionaryRow {
   word?: string
   partOfSpeech?: string
   pronunciations?: string
@@ -9,11 +9,16 @@ export interface SheetRow {
 }
 
 export interface DictionaryEntry {
-  word: string
   partOfSpeech: string
   pronunciations: string[]
   glosses: string[]
   examples: string[]
   notes: string[]
   alternateForms: string[]
+}
+
+export type Word = DictionaryEntry[]
+
+export interface WordCollection {
+  [word: string]: Word
 }

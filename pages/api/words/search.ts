@@ -1,5 +1,5 @@
 import { DictionaryEntry } from "./../../../types/DictionaryTypes"
-import { getCache } from "../../../utils/cacheManager"
+import { getCache } from "../../../utils/searchCaching"
 import { NextApiRequest, NextApiResponse } from "next"
 
 interface SearchResultData {

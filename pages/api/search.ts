@@ -1,4 +1,4 @@
-import { getCache } from "./../../utils/cacheManager"
+import { getCache } from "../../utils/searchCaching"
 import { NextApiRequest, NextApiResponse } from "next"
 
 export interface SearchableItem {

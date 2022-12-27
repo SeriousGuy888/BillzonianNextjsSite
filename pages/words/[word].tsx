@@ -1,7 +1,7 @@
 import {
-  allWordData,
+  cachedWordData,
   getWord,
-  sanitiseWord,
+  padWord,
   uniqueWordsList,
 } from "../../utils/dictionaryData"
 import styles from "../../styles/Word.module.scss"
@@ -133,12 +133,12 @@ const Word: NextPage<{
 }
 
 const wordExists = (word: string) => {
-  return word in allWordData
+  return word in cachedWordData
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = (context) => {
   const searchWord = context.params?.word?.toString() ?? ""
-  const foundWord = await getWord(searchWord)
+  const foundWord = getWord(searchWord)
 
   let entries = foundWord
   if (foundWord instanceof Error) {
@@ -154,7 +154,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = uniqueWordsList.map((word) => ({
     params: {
-      word: sanitiseWord(word),
+      word: padWord(word),
     },
   }))
 

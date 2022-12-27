@@ -9,7 +9,7 @@ import React, {
 import { SearchableItem, SearchResult } from "../api/search"
 import SearchIcon from "@mui/icons-material/SearchRounded"
 import styles from "../../styles/Search.module.scss"
-import { getCache } from "../../utils/cacheManager"
+import { getCache } from "../../utils/searchCaching"
 
 const Search = () => {
   const searchBoxRef = useRef(
