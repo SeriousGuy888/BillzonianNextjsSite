@@ -1,16 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { getWord, cachedWordData } from "../../../utils/dictionaryData"
+import { getWordsOnPage } from "../../../utils/dictionaryData"
+import { getParamAsInt } from "../../../utils/queryParamParser"
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const searchTerm = (req.query.q?.toString() ?? "").trim()
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const pageNum = getParamAsInt(req.query.page, 1)
+  const wordPerPage = getParamAsInt(req.query.perPage, 16)
 
-  if (!searchTerm) {
-    res.status(200).json(cachedWordData)
-  } else {
-    const foundWord = getWord(searchTerm)
-    res.status(foundWord instanceof Error ? 404 : 200).json(foundWord)
-  }
+  const wordsOnPage = getWordsOnPage(pageNum, wordPerPage)
+  res.status(200).json(wordsOnPage)
 }

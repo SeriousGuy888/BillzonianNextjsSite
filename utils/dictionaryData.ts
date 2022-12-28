@@ -11,11 +11,16 @@ async function updateWordsData() {
   uniqueWordsList = Object.keys(cachedWordData)
 }
 
+export const getPageCount = (wordsPerPage: number) => {
+  return Math.ceil(uniqueWordsList.length / wordsPerPage)
+}
 export function getWordsOnPage(pageNum: number, wordsPerPage: number) {
-  const startIndex = Math.min(
-    (pageNum - 1) * wordsPerPage,
-    uniqueWordsList.length - 1,
-  )
+  const maxIndex = uniqueWordsList.length - 1
+  const startIndex = (pageNum - 1) * wordsPerPage
+
+  if (startIndex > maxIndex || startIndex < 0) {
+    return []
+  }
   return uniqueWordsList.slice(startIndex, startIndex + wordsPerPage)
 }
 
