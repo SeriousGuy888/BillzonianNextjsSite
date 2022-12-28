@@ -4,27 +4,52 @@ import { SearchResult } from "../api/search"
 import SearchIcon from "@mui/icons-material/SearchRounded"
 import styles from "../../styles/Search.module.scss"
 
-const Search = () => {
+const SearchPage = () => {
   const searchBoxRef = useRef(
     null,
   ) as React.MutableRefObject<HTMLInputElement | null>
 
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<SearchResult[]>([])
+  const [loading, setLoading] = useState(false)
 
   const searchEndpoint = (query: string) => `/api/search?q=${query}`
 
   const runSearch = useCallback(() => {
     if (query.length) {
+      setLoading(true)
       fetch(searchEndpoint(query))
         .then((res) => res.json())
         .then((res) => {
           setResults(res.results)
+          setLoading(false)
         })
     } else {
       setResults([])
     }
   }, [query])
+
+  const renderLoading = () => {
+    return <p>Loading...</p>
+  }
+  const renderResults = () => {
+    if (results.length > 0) {
+      return (
+        <ul className={styles.results}>
+          {results.map((item) => (
+            <div key={item.linkPath} className={styles.itemContainer}>
+              <Link className={styles.item} href={item.linkPath}>
+                <h3>{item.title}</h3>
+                <p>{item.linkPath}</p>
+              </Link>
+            </div>
+          ))}
+        </ul>
+      )
+    } else {
+      return <p>No Results. Enter search term and press enter to search.</p>
+    }
+  }
 
   return (
     <section className={styles.search} ref={searchBoxRef}>
@@ -44,22 +69,9 @@ const Search = () => {
           autoFocus
         />
       </form>
-      {results.length > 0 ? (
-        <ul className={styles.results}>
-          {results.map((item) => (
-            <div key={item.linkPath} className={styles.itemContainer}>
-              <Link className={styles.item} href={item.linkPath}>
-                <h3>{item.title}</h3>
-                <p>{item.linkPath}</p>
-              </Link>
-            </div>
-          ))}
-        </ul>
-      ) : (
-        <p>No Results. Enter search term and press enter to search.</p>
-      )}
+      {loading ? renderLoading() : renderResults()}
     </section>
   )
 }
 
-export default Search
+export default SearchPage
