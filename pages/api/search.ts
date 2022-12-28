@@ -17,7 +17,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<SearchResultData>,
 ) {
-  const searchTerm = (req.query.q?.toString() ?? "").trim()
+  const searchTerm = (req.query.q?.toString() ?? "").trim().toLowerCase()
 
   if (!searchTerm) {
     res.status(400).json({ results: [] })
