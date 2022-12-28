@@ -1,4 +1,4 @@
-import { getCache } from "../../utils/searchCaching"
+import { getSearchCache } from "../../utils/searchCaching"
 import { NextApiRequest, NextApiResponse } from "next"
 
 export interface SearchableItem {
@@ -24,7 +24,7 @@ export default function handler(
     return
   }
 
-  const searchCache = getCache()
+  const searchCache = getSearchCache()
   const results: SearchResult[] = []
   searchCache.forEach((item) => {
     if (!item.searchableText.includes(searchTerm)) return
