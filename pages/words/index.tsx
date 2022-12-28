@@ -1,6 +1,5 @@
 import WordLink from "../../components/elements/wordlist/WordLink"
 import styles from "../../styles/Wordlist.module.scss"
-import { motion } from "framer-motion"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { getParamAsInt } from "../../utils/queryParamParser"
@@ -37,15 +36,11 @@ const WordPage: NextPage<PageProps> = ({ words, page, maxPage }) => {
         <title>Billzonian Dictionary</title>
       </Head>
       <Pagination currPage={page} maxPage={maxPage} goToPageFn={goToPage} />
-      <motion.section
-        className={styles.wordList}
-        initial={{ y: 25 }}
-        animate={{ y: 0 }}
-      >
+      <section className={styles.wordList}>
         {words.map((w) => (
           <WordLink key={w} word={w} />
         ))}
-      </motion.section>
+      </section>
     </>
   )
 }
