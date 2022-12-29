@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from "react"
 import { SearchResult } from "../api/search"
 import SearchIcon from "@mui/icons-material/SearchRounded"
 import styles from "../../styles/Search.module.scss"
+import LoadingSpinner from "../../components/elements/LoadingSpinner"
 
 const SearchPage = () => {
   const searchBoxRef = useRef(
@@ -30,7 +31,7 @@ const SearchPage = () => {
   }, [query])
 
   const renderLoading = () => {
-    return <p>Loading...</p>
+    return <LoadingSpinner />
   }
   const renderResults = () => {
     if (results.length > 0) {
