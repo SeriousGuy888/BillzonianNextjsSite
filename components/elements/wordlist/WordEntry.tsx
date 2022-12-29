@@ -5,7 +5,7 @@ import Link from "next/link"
 import { DictionaryEntry } from "../../../types/DictionaryTypes"
 import { cachedWordData } from "../../../utils/dictionaryData"
 import styles from "../../../styles/Word.module.scss"
-import WordGloss from "./WordGloss"
+import WordEntryText from "./WordEntryText"
 
 const notoSans = Noto_Sans({
   weight: "400",
@@ -35,7 +35,7 @@ const WordEntry: NextPage<PageProps> = ({ entry, entryIndex }) => {
       {entry.glosses.length > 0 && (
         <ol>
           {entry.glosses.map((gloss) => (
-            <WordGloss glossStr={gloss} key={gloss} />
+            <WordEntryText glossStr={gloss} key={gloss} />
           ))}
         </ol>
       )}

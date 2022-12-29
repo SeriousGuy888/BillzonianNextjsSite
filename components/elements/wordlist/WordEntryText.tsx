@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 const WordGloss: NextPage<PageProps> = ({ glossStr }) => {
-  return <li key={glossStr}>{parseWordLinks(glossStr)}</li>
+  return <li>{parseWordLinks(glossStr)}</li>
 }
 
 const parseWordLinks = (gloss: string): Iterable<ReactNode> => {
