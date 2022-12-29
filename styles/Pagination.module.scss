@@ -5,9 +5,9 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 
-  width: max-content;
+  width: min(25rem, 100%);
   margin-left: auto;
   margin-right: auto;
 
@@ -20,6 +20,7 @@
 
   p {
     @include label-text;
+    text-align: center;
   }
 
   .arrowGroup {
