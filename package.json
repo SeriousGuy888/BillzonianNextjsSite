@@ -25,6 +25,7 @@
     "public-google-sheets-parser": "^1.2.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-string-replace": "^1.1.0",
     "sass": "^1.56.2",
     "string-similarity": "^4.0.4",
     "typescript": "4.9.4"
