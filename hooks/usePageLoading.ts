@@ -7,7 +7,10 @@ export const usePageLoading = () => {
   const [isPageLoading, setIsPageLoading] = useState(false)
 
   useEffect(() => {
-    const routeEventStart = () => {
+    const routeEventStart = (url: string) => {
+      if (url.includes("?page=")) {
+        return
+      }
       setIsPageLoading(true)
     }
     const routeEventEnd = () => {
