@@ -6,9 +6,13 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion"
 
 import Nav from "../components/elements/nav/Nav"
 import Router, { useRouter } from "next/router"
+import { usePageLoading } from "../hooks/usePageLoading"
+import LoadingSpinner from "../components/elements/LoadingSpinner"
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
+
+  const { isPageLoading } = usePageLoading()
 
   return (
     <MotionConfig reducedMotion="user" transition={{ duration: 0.25 }}>
@@ -21,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Component {...pageProps} />
+            {isPageLoading ? <LoadingSpinner /> : <Component {...pageProps} />}
           </motion.main>
         </div>
       </AnimatePresence>
