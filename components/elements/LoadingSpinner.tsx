@@ -10,20 +10,16 @@ const LoadingSpinner: NextPage<{ width?: string; height?: string }> = ({
   return (
     <div className={styles.loadingContainer}>
       <motion.span
-        
-        initial={{ opacity: 0.25 }}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
-          duration: 1,
-          repeat: Infinity,
-          repeatType: "reverse",
-          repeatDelay: 0.1,
-          ease: "easeInOut",
+          duration: 2,
+          ease: "easeIn",
         }}
       >
         <LogoNoFill width={width ?? "100%"} height={height ?? "100%"} />
+        <h3>Loading...</h3>
       </motion.span>
-      <h3>Loading...</h3>
     </div>
   )
 }
