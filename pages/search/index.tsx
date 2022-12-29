@@ -31,7 +31,7 @@ const SearchPage = () => {
   }, [query])
 
   const renderLoading = () => {
-    return <LoadingSpinner width={"10rem"} height={"10rem"} />
+    return <LoadingSpinner />
   }
   const renderResults = () => {
     if (results.length > 0) {
