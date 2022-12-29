@@ -4,11 +4,11 @@ import React, { ReactNode } from "react"
 import reactStringReplace from "react-string-replace"
 
 interface PageProps {
-  glossStr: string
+  text: string
 }
 
-const WordGloss: NextPage<PageProps> = ({ glossStr }) => {
-  return <li>{parseWordLinks(glossStr)}</li>
+const WordGloss: NextPage<PageProps> = ({ text }) => {
+  return <li>{parseWordLinks(text)}</li>
 }
 
 const parseWordLinks = (gloss: string): Iterable<ReactNode> => {

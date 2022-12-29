@@ -35,21 +35,21 @@ const WordEntry: NextPage<PageProps> = ({ entry, entryIndex }) => {
       {entry.glosses.length > 0 && (
         <ol>
           {entry.glosses.map((gloss) => (
-            <WordEntryText glossStr={gloss} key={gloss} />
+            <WordEntryText text={gloss} key={gloss} />
           ))}
         </ol>
       )}
       {entry.examples.length > 0 && (
         <ol className={styles.letterList}>
           {entry.examples.map((example) => (
-            <li key={example}>{example}</li>
+            <WordEntryText text={example} key={example} />
           ))}
         </ol>
       )}
       {entry.notes.length > 0 && (
         <ul>
           {entry.notes.map((note) => (
-            <li key={note}>{note}</li>
+            <WordEntryText text={note} key={note} />
           ))}
         </ul>
       )}
