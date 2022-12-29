@@ -1,8 +1,12 @@
 import styles from "../../styles/LoadingSpinner.module.scss"
-import { motion, } from "framer-motion"
+import { motion } from "framer-motion"
 import { LogoNoFill } from "../logos"
+import { NextPage } from "next"
 
-function LoadingSpinner() {
+const LoadingSpinner: NextPage<{ width?: string; height?: string }> = ({
+  width,
+  height,
+}) => {
   return (
     <motion.div
       className={styles.loadingContainer}
@@ -15,8 +19,12 @@ function LoadingSpinner() {
         repeatDelay: 0.1,
         ease: "easeInOut",
       }}
+      style={{
+        width,
+        height,
+      }}
     >
-      <LogoNoFill width={"100%"} height={"100%"} />
+      <LogoNoFill width={width ?? "100%"} height={height ?? "100%"} />
     </motion.div>
   )
 }
