@@ -6,6 +6,7 @@ import { DictionaryEntry } from "../../../types/DictionaryTypes"
 import { cachedWordData } from "../../../utils/dictionaryData"
 import styles from "../../../styles/Word.module.scss"
 import WordEntryText from "./WordEntryText"
+import WordLink from "./WordLink"
 
 const notoSans = Noto_Sans({
   weight: "400",
@@ -72,25 +73,13 @@ const WordEntry: NextPage<PageProps> = ({ entry, entryIndex }) => {
           Alternate forms / spellings:{" "}
           <span className={styles.altForms}>
             {entry.alternateForms.map((altForm) => (
-              <span key={altForm}>
-                <Link
-                  href={`/words/${altForm}`}
-                  className={wordExists(altForm) ? "" : "redLink"}
-                  title={wordExists(altForm) ? "" : "This page does not exist."}
-                >
-                  {altForm}
-                </Link>
-              </span>
+              <WordLink key={altForm} word="altForm" />
             ))}
           </span>
         </p>
       )}
     </motion.article>
   )
-}
-
-const wordExists = (word: string) => {
-  return word in cachedWordData
 }
 
 export default WordEntry
