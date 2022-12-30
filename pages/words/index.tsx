@@ -45,9 +45,7 @@ const WordPage: NextPage<PageProps> = ({ words, page, maxPage }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<PageProps> = async ({
-  query,
-}) => {
+const getProps: GetServerSideProps<PageProps> = async ({ query }) => {
   const wordsPerPage = 16
 
   const pageNum = getParamAsInt(query.page, 1)
@@ -62,5 +60,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     },
   }
 }
+
+export const getServerSideProps: GetServerSideProps<PageProps> = getProps
+export const getInitialProps: GetServerSideProps<PageProps> = getProps
 
 export default WordPage
