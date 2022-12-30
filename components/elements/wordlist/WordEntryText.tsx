@@ -14,11 +14,17 @@ const WordGloss: NextPage<PageProps> = ({ text }) => {
 const parseWordLinks = (gloss: string): Iterable<ReactNode> => {
   const quotedStrRegex = /`([^\\`]+)`/g
 
-  return reactStringReplace(gloss, quotedStrRegex, (match, i) => (
-    <WordLink key={i} word={match}>
-      {match}{" "}
-    </WordLink>
+  const replaced = reactStringReplace(gloss, quotedStrRegex, (match, i) => (
+    <WordLink key={i} word={match} />
   ))
+
+  return replaced.map((e) => {
+    if (e === " ") {
+      return "\u00a0" // non breaking space (&nbsp;)
+    } else {
+      return e
+    }
+  })
 }
 
 export default WordGloss
