@@ -13,12 +13,9 @@
     gap: 2rem;
     flex-wrap: wrap;
 
-    & > * {
+    .entriesCol {
       display: flex;
       flex-direction: column;
-    }
-
-    .entriesCol {
       flex: 4;
       min-width: 60%;
 
@@ -39,7 +36,8 @@
   }
 }
 
-.entry, .etymologyCol {
+.entry,
+.etymologyCol {
   background-color: $black;
   padding: 2.5rem;
   border-radius: 10px;

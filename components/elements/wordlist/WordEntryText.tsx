@@ -1,4 +1,5 @@
 import { NextPage } from "next"
+import Link from "next/link"
 import React, { ReactNode } from "react"
 import reactStringReplace from "react-string-replace"
 import WordLink from "./WordLink"
@@ -8,14 +9,21 @@ interface PageProps {
 }
 
 const WordGloss: NextPage<PageProps> = ({ text }) => {
-  return <li>{parseWordLinks(text)}</li>
+  return <>{parseWordLinks(text)}</>
 }
 
 const parseWordLinks = (gloss: string): Iterable<ReactNode> => {
-  const quotedStrRegex = /`([^\\`]+)`/g
+  const quotedInBackticks = /`([^\\`]+)`/g
+  const quotedInAsterisks = /\*([^\\\*]+)\*/g
 
-  const replaced = reactStringReplace(gloss, quotedStrRegex, (match, i) => (
+  let replaced
+  replaced = reactStringReplace(gloss, quotedInBackticks, (match, i) => (
     <WordLink key={i} word={match} />
+  ))
+  replaced = reactStringReplace(replaced, quotedInAsterisks, (match, i) => (
+    <Link key={i} target="_blank" href={`https://en.wiktionary.org/wiki/${match}`}>
+      {match}
+    </Link>
   ))
 
   return replaced.map((e) => {

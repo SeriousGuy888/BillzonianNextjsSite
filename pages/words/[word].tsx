@@ -5,6 +5,7 @@ import Head from "next/head"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { DictionaryEntry } from "../../types/DictionaryTypes"
 import WordEntry from "../../components/elements/wordlist/WordEntry"
+import WordEntryText from "../../components/elements/wordlist/WordEntryText"
 
 const Word: NextPage<{
   entries?: DictionaryEntry[]
@@ -53,7 +54,9 @@ const Word: NextPage<{
               {entries
                 .filter((e) => e.etymology)
                 .map((entry, i) => (
-                  <p key={i}>{entry.etymology}</p>
+                  <p key={entry.etymology}>
+                    <WordEntryText text={entry.etymology ?? ""} />
+                  </p>
                 ))}
             </div>
           )}
