@@ -6,6 +6,7 @@ export interface DictionaryRow {
   examples?: string
   notes?: string
   alternateForms?: string
+  etymology?: string
 }
 
 export interface DictionaryEntry {
@@ -15,6 +16,7 @@ export interface DictionaryEntry {
   examples: string[]
   notes: string[]
   alternateForms: string[]
+  etymology: string | null,
 }
 
 export type Word = DictionaryEntry[]

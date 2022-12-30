@@ -1,8 +1,4 @@
-import {
-  getWord,
-  padWord,
-  uniqueWordsList,
-} from "../../utils/dictionaryData"
+import { getWord, padWord, uniqueWordsList } from "../../utils/dictionaryData"
 import styles from "../../styles/Word.module.scss"
 
 import Head from "next/head"
@@ -45,9 +41,23 @@ const Word: NextPage<{
 
       <section className={styles.main}>
         <h1>{word}</h1>
-        {entries.map((entry, i) => (
-          <WordEntry key={entry.glosses[0]} entry={entry} entryIndex={i} />
-        ))}
+        <article className={styles.twoCols}>
+          <div className={styles.entriesCol}>
+            {entries.map((entry, i) => (
+              <WordEntry key={entry.glosses[0]} entry={entry} entryIndex={i} />
+            ))}
+          </div>
+          {entries.some((entry) => entry.etymology) && (
+            <div className={styles.etymologyCol}>
+              <h3>Etymology</h3>
+              {entries
+                .filter((e) => e.etymology)
+                .map((entry, i) => (
+                  <p key={i}>{entry.etymology}</p>
+                ))}
+            </div>
+          )}
+        </article>
       </section>
     </>
   )

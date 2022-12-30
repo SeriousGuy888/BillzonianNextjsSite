@@ -33,6 +33,7 @@ export const getUpdatedData = async (): Promise<WordCollection> => {
       examples: splitEntry(row.examples),
       notes: splitEntry(row.notes),
       alternateForms: splitEntry(row.alternateForms),
+      etymology: row.etymology ?? null,
     }
 
     if (!entries[word]) {

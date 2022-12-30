@@ -2,18 +2,46 @@
 @import "typography_mixins";
 
 .main {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
   h1 {
     word-wrap: break-word;
+    margin-bottom: 2rem;
+  }
+
+  .twoCols {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    & > * {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .entriesCol {
+      flex: 4;
+      min-width: 60%;
+
+      gap: 2rem;
+    }
+
+    .etymologyCol {
+      flex: 1;
+      min-width: 250px;
+
+      height: min-content;
+      gap: 1rem;
+
+      & > * {
+        word-wrap: break-word;
+      }
+    }
   }
 }
 
-.entry {
+.entry, .etymologyCol {
   background-color: $black;
-  padding: 3rem;
+  padding: 2.5rem;
   border-radius: 10px;
 
   display: flex;
