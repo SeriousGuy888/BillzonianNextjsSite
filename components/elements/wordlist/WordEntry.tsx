@@ -73,7 +73,7 @@ const WordEntry: NextPage<PageProps> = ({ entry, entryIndex }) => {
           Alternate forms / spellings:{" "}
           <span className={styles.altForms}>
             {entry.alternateForms.map((altForm) => (
-              <WordLink key={altForm} word="altForm" />
+              <WordLink key={altForm} word={altForm} />
             ))}
           </span>
         </p>
