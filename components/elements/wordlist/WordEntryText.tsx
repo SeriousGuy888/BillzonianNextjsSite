@@ -15,7 +15,9 @@ const parseWordLinks = (gloss: string): Iterable<ReactNode> => {
   const quotedStrRegex = /`([^\\`]+)`/g
 
   return reactStringReplace(gloss, quotedStrRegex, (match, i) => (
-    <WordLink key={i} word={match} />
+    <WordLink key={i} word={match}>
+      {match}{" "}
+    </WordLink>
   ))
 }
 
