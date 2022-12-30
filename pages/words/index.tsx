@@ -1,4 +1,4 @@
-import WordLink from "../../components/elements/wordlist/WordLink"
+import WordListLink from "../../components/elements/wordlist/WordListLink"
 import styles from "../../styles/Wordlist.module.scss"
 import Head from "next/head"
 import { useRouter } from "next/router"
@@ -38,7 +38,7 @@ const WordPage: NextPage<PageProps> = ({ words, page, maxPage }) => {
       <Pagination currPage={page} maxPage={maxPage} goToPageFn={goToPage} />
       <section className={styles.wordList}>
         {words.map((w) => (
-          <WordLink key={w} word={w} />
+          <WordListLink key={w} word={w} />
         ))}
       </section>
     </>
