@@ -12,7 +12,9 @@ const WordGloss: NextPage<PageProps> = ({ text }) => {
 }
 
 const parseWordLinks = (gloss: string): Iterable<ReactNode> => {
-  return reactStringReplace(gloss, /`(.+)`/g, (match, i) => (
+  const quotedStrRegex = /`([^\\`]+)`/g
+
+  return reactStringReplace(gloss, quotedStrRegex, (match, i) => (
     <Link key={i} href={match}>
       {match}
     </Link>
