@@ -8,6 +8,7 @@ import { getPageCount } from "../../utils/dictionaryData"
 import Pagination from "../../components/elements/wordlist/Pagination"
 import { useCallback, useEffect, useState } from "react"
 import useSWR from "swr"
+import LoadingSpinner from "../../components/elements/LoadingSpinner"
 
 interface PageProps {
   initialPage: number
@@ -21,9 +22,11 @@ const WordListSection: NextPage<{ page: number }> = ({ page }) => {
 
   return (
     <section className={styles.wordList}>
-      {(words ?? []).map((w) => (
-        <WordListLink key={w} word={w} />
-      ))}
+      {words ? (
+        words.map((w) => <WordListLink key={w} word={w} />)
+      ) : (
+        <LoadingSpinner />
+      )}
     </section>
   )
 }
