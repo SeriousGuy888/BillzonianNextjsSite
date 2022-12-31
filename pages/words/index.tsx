@@ -3,31 +3,56 @@ import styles from "../../styles/Wordlist.module.scss"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { getParamAsInt } from "../../utils/queryParamParser"
-import { GetServerSideProps, NextPage } from "next"
-import { getPageCount, getWordsOnPage } from "../../utils/dictionaryData"
+import { NextPage } from "next"
+import { getPageCount } from "../../utils/dictionaryData"
 import Pagination from "../../components/elements/wordlist/Pagination"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
+import useSWR from "swr"
 
 interface PageProps {
-  words: string[]
-  page: number
-  maxPage: number
+  initialPage: number
+  pageCount: number
 }
 
-const WordPage: NextPage<PageProps> = ({ words, page, maxPage }) => {
+const WordListSection: NextPage<{ page: number }> = ({ page }) => {
+  const { data: words } = useSWR(`/api/words?page=${page}`) as {
+    data: string[]
+  }
+
+  return (
+    <section className={styles.wordList}>
+      {(words ?? []).map((w) => (
+        <WordListLink key={w} word={w} />
+      ))}
+    </section>
+  )
+}
+
+const WordPage: NextPage<PageProps> = ({ initialPage, pageCount }) => {
   const router = useRouter()
+  const [page, setPage] = useState(initialPage)
+
+  useEffect(() => {
+    setPage(initialPage)
+  }, [initialPage])
+
   const goToPage = useCallback(
-    (page: number) => {
-      if (page <= 0 || page > maxPage) {
+    (newPage: number) => {
+      if (newPage <= 0 || newPage > pageCount) {
         return
       }
+      setPage(newPage)
 
-      router.push({
-        pathname: router.pathname,
-        query: { page },
-      })
+      router.push(
+        {
+          pathname: router.pathname,
+          query: { page: newPage },
+        },
+        undefined,
+        { shallow: true },
+      )
     },
-    [router, maxPage],
+    [router, pageCount],
   )
 
   return (
@@ -35,33 +60,27 @@ const WordPage: NextPage<PageProps> = ({ words, page, maxPage }) => {
       <Head>
         <title>Billzonian Dictionary</title>
       </Head>
-      <Pagination currPage={page} maxPage={maxPage} goToPageFn={goToPage} />
-      <section className={styles.wordList}>
-        {words.map((w) => (
-          <WordListLink key={w} word={w} />
-        ))}
-      </section>
+      <Pagination currPage={page} maxPage={pageCount} goToPageFn={goToPage} />
+      <WordListSection page={page} />
+
+      {/* Preloads the previous and next pages so the transition when the
+      user clicks next page or previous page is faster/smoother. */}
+      <div style={{ display: "none" }}>
+        <WordListSection page={page + 1} />
+        <WordListSection page={page - 1} />
+      </div>
     </>
   )
 }
 
-const getProps: GetServerSideProps<PageProps> = async ({ query }) => {
-  const wordsPerPage = 16
-
-  const pageNum = getParamAsInt(query.page, 1)
-  const words = getWordsOnPage(pageNum, wordsPerPage)
-  const maxPage = getPageCount(wordsPerPage)
+WordPage.getInitialProps = async ({ query }) => {
+  const initialPage = getParamAsInt(query.page, 1)
+  const pageCount = getPageCount(16)
 
   return {
-    props: {
-      words,
-      page: pageNum,
-      maxPage,
-    },
+    initialPage,
+    pageCount,
   }
 }
-
-export const getServerSideProps: GetServerSideProps<PageProps> = getProps
-export const getInitialProps: GetServerSideProps<PageProps> = getProps
 
 export default WordPage
