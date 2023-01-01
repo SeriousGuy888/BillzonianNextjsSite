@@ -22,7 +22,7 @@ export default function Nav() {
       <section className="linkList">
         <NavItem href="/" label="Home" icon={<HomeIcon />} />
         <NavItem href="/words" label="Words" icon={<BookIcon />} />
-        <NavItem href="/posts" label="Posts" icon={<ArticleIcon />} />
+        {/* <NavItem href="/posts" label="Posts" icon={<ArticleIcon />} /> */}
         <NavItem href="/wordle" label="Unkrat Wordle" icon={<GridIcon />} />
         <NavItem href="/search" label="Search" icon={<SearchIcon />} />
       </section>
