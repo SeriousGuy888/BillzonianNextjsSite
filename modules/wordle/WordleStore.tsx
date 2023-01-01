@@ -33,8 +33,11 @@ let state = {
   submitGuess() {
     this.currGuessIndex++
   },
-  handleKeyUp(event: KeyboardEvent) {
+  handleKeyUp(event: KeyboardEvent) {    
     if (this.won || this.lost) {
+      return
+    }
+    if (event.altKey || event.ctrlKey || event.metaKey) {
       return
     }
 
