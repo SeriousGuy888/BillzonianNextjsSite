@@ -38,19 +38,8 @@ let state = {
       return
     }
 
-    if (
-      event.key === "Enter" &&
-      this.guesses[this.currGuessIndex].length === 5
-    ) {
-      return this.submitGuess()
-    }
-
-    if (event.key === "Backspace") {
-      const currGuess = this.guesses[this.currGuessIndex]
-      this.guesses[this.currGuessIndex] = currGuess.slice(
-        0,
-        currGuess.length - 1,
-      )
+    if (event.key === "Enter" || event.key === "Backspace") {
+      this.pressKey(event.key)
       return
     }
 
@@ -59,7 +48,26 @@ let state = {
       event.key.length === 1 &&
       event.key.toLowerCase().match(/[a-z]/)
     ) {
-      this.guesses[this.currGuessIndex] += event.key.toLowerCase()
+      this.pressKey(event.key.toLowerCase())
+    }
+  },
+  pressKey(key: string) {
+    switch (key) {
+      case "Enter":
+        if (this.guesses[this.currGuessIndex].length === 5) {
+          this.submitGuess()
+        }
+        break
+      case "Backspace":
+        const currGuess = this.guesses[this.currGuessIndex]
+        this.guesses[this.currGuessIndex] = currGuess.slice(
+          0,
+          currGuess.length - 1,
+        )
+        break
+      default: // should only ever be /[a-z]/
+        this.guesses[this.currGuessIndex] += key.toLowerCase()
+        break
     }
   },
 }

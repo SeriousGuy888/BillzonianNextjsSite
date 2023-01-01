@@ -57,6 +57,15 @@
 
         border: 1px solid $light-grey;
         border-radius: 10px;
+
+        &.wideKey {
+          flex: 1;
+        }
+
+        &:hover {
+          cursor: pointer;
+          outline: 1px solid $white;
+        }
       }
     }
   }
