@@ -1,6 +1,7 @@
 import { observer, useLocalObservable } from "mobx-react-lite"
 import Head from "next/head"
 import { useCallback, useEffect, useRef } from "react"
+import WordLink from "../../components/elements/wordlist/WordLink"
 import Guess from "../../modules/wordle/Guess"
 import Qwerty from "../../modules/wordle/Qwerty"
 import styles from "../../modules/wordle/Wordle.module.scss"
@@ -46,10 +47,13 @@ export default observer(function Wordle() {
           />
         ))}
 
-        <p>
-          {store.won && "Thu hav vikked! 🎉"}
-          {store.lost && `Thu hav misvikked. Akrat word "${store.word.toUpperCase()}" beed. 😔`}
-        </p>
+        {store.won && <p>Thu hav vikked! 🎉</p>}
+        {store.lost && (
+          <p>
+            Thu hav misvikked. Akrat word{" "}
+            <WordLink word={store.word}>{store.word.toUpperCase()}</WordLink> beed. 😔
+          </p>
+        )}
 
         <Qwerty store={store} />
       </section>
