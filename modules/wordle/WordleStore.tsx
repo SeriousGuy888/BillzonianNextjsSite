@@ -1,13 +1,18 @@
+import words from "./words.json"
+
 let state = {
   word: "",
   guesses: [] as string[],
   currGuessIndex: 0,
 
+  wordLength: 5,
+  guessLimit: 6,
+
   get won(): boolean {
     return this.guesses[this.currGuessIndex - 1] === this.word
   },
   get lost(): boolean {
-    return this.currGuessIndex >= 6
+    return !this.won && this.currGuessIndex >= this.guessLimit
   },
   get guessedLettersAll(): string[] {
     return this.guesses.slice(0, this.currGuessIndex).join("").split("")
@@ -26,14 +31,17 @@ let state = {
     )
   },
   init() {
-    this.word = "akrat"
-    this.guesses = new Array(6).fill("")
+    this.word = words[Math.floor(Math.random() * words.length)]
     this.currGuessIndex = 0
+
+    this.wordLength = this.word.length
+    this.guessLimit = this.wordLength + 1
+    this.guesses = new Array(this.guessLimit).fill("")
   },
   submitGuess() {
     this.currGuessIndex++
   },
-  handleKeyUp(event: KeyboardEvent) {    
+  handleKeyUp(event: KeyboardEvent) {
     if (this.won || this.lost) {
       return
     }
@@ -47,7 +55,7 @@ let state = {
     }
 
     if (
-      this.guesses[this.currGuessIndex].length < 5 &&
+      this.guesses[this.currGuessIndex].length < this.wordLength &&
       event.key.length === 1 &&
       event.key.toLowerCase().match(/[a-z]/)
     ) {
@@ -57,7 +65,7 @@ let state = {
   pressKey(key: string) {
     switch (key) {
       case "Enter":
-        if (this.guesses[this.currGuessIndex].length === 5) {
+        if (this.guesses[this.currGuessIndex].length === this.wordLength) {
           this.submitGuess()
         }
         break

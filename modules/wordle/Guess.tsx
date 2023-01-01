@@ -4,14 +4,15 @@ import { WordleColour } from "../../pages/wordle"
 
 interface PageProps {
   word: string
+  wordLength: number,
   guess?: string
   isSubmitted: boolean
 }
 
-const Guess: NextPage<PageProps> = ({ word, guess, isSubmitted }) => {
+const Guess: NextPage<PageProps> = ({ word, wordLength, guess, isSubmitted }) => {
   return (
     <div className={styles.row}>
-      {new Array(5).fill(null).map((_, i) => {
+      {new Array(wordLength).fill(null).map((_, i) => {
         const letter = guess?.[i] ?? ""
 
         let cellColourClass: WordleColour = ""

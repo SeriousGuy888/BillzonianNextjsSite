@@ -10,7 +10,7 @@ export type WordleColour = "" | "grey" | "yellow" | "green"
 
 export default observer(function Wordle() {
   const store = useLocalObservable(() => WordleStore)
-  
+
   const preventEnter = useCallback((e: KeyboardEvent) => {
     if (e.key === "Enter") e.preventDefault()
   }, [])
@@ -33,20 +33,23 @@ export default observer(function Wordle() {
       </Head>
       <section className={styles.game}>
         <h3>Unkrat Wordle</h3>
-        <p>word: {store.word}</p>
-        <p>curr guess: {store.currGuessIndex}</p>
+        <p>(Guesses don&apos;t have to be valid Billzonian words)</p>
+        <br />
 
         {store.guesses.map((_, i) => (
           <Guess
             key={i.toString()}
             word={store.word}
+            wordLength={store.wordLength}
             guess={store.guesses[i]}
             isSubmitted={store.currGuessIndex > i}
           />
         ))}
 
-        {store.won && "Thu vikked!"}
-        {store.lost && "Thu misvikked!"}
+        <p>
+          {store.won && "Thu hav vikked! 🎉"}
+          {store.lost && `Thu hav misvikked. Akrat word "${store.word.toUpperCase()}" beed. 😔`}
+        </p>
 
         <Qwerty store={store} />
       </section>
