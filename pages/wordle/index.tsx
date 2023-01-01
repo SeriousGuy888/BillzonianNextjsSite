@@ -1,6 +1,6 @@
 import { observer, useLocalObservable } from "mobx-react-lite"
 import Head from "next/head"
-import { useEffect } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import Guess from "../../modules/wordle/Guess"
 import Qwerty from "../../modules/wordle/Qwerty"
 import styles from "../../modules/wordle/Wordle.module.scss"
@@ -10,12 +10,18 @@ export type WordleColour = "" | "grey" | "yellow" | "green"
 
 export default observer(function Wordle() {
   const store = useLocalObservable(() => WordleStore)
+  
+  const preventEnter = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Enter") e.preventDefault()
+  }, [])
 
   useEffect(() => {
     store.init()
 
+    window.addEventListener("keydown", preventEnter)
     window.addEventListener("keyup", store.handleKeyUp)
     return () => {
+      window.removeEventListener("keydown", preventEnter)
       window.removeEventListener("keyup", store.handleKeyUp)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
