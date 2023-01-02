@@ -56,13 +56,13 @@ export default observer(function Wordle() {
               <WordLink word={store.word}>{store.word.toUpperCase()}</WordLink>{" "}
               beed. 😔
             </p>
-            <Link href="#again" onClick={() => store.init()}>
+            <Link href="#again" onClick={store.init}>
               Iter play!
             </Link>
           </>
         )}
         {!store.won && !store.lost && (
-          <Link href="#die" onClick={() => store.giveUp()}>
+          <Link href="#die" onClick={store.giveUp}>
             Give up
           </Link>
         )}
