@@ -38,6 +38,9 @@ let state = {
     this.guessLimit = this.wordLength + 1
     this.guesses = new Array(this.guessLimit).fill("")
   },
+  giveUp() {
+    this.currGuessIndex = this.guessLimit
+  },
   submitGuess() {
     this.currGuessIndex++
   },

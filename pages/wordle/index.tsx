@@ -1,5 +1,6 @@
 import { observer, useLocalObservable } from "mobx-react-lite"
 import Head from "next/head"
+import Link from "next/link"
 import { useCallback, useEffect, useRef } from "react"
 import WordLink from "../../components/elements/wordlist/WordLink"
 import Guess from "../../modules/wordle/Guess"
@@ -49,10 +50,21 @@ export default observer(function Wordle() {
 
         {store.won && <p>Thu hav vikked! 🎉</p>}
         {store.lost && (
-          <p>
-            Thu hav misvikked. Akrat word{" "}
-            <WordLink word={store.word}>{store.word.toUpperCase()}</WordLink> beed. 😔
-          </p>
+          <>
+            <p>
+              Thu hav misvikked. Akrat word{" "}
+              <WordLink word={store.word}>{store.word.toUpperCase()}</WordLink>{" "}
+              beed. 😔
+            </p>
+            <Link href="#again" onClick={() => store.init()}>
+              Iter play!
+            </Link>
+          </>
+        )}
+        {!store.won && !store.lost && (
+          <Link href="#die" onClick={() => store.giveUp()}>
+            Give up
+          </Link>
         )}
 
         <Qwerty store={store} />
