@@ -3,7 +3,7 @@ import ArrowBack from "@mui/icons-material/KeyboardArrowLeftRounded"
 import ArrowForward from "@mui/icons-material/KeyboardArrowRightRounded"
 import ArrowForwardDouble from "@mui/icons-material/KeyboardDoubleArrowRightRounded"
 import { NextPage } from "next"
-import styles from "../../../styles/Pagination.module.scss"
+import styles from "./Pagination.module.scss"
 
 interface PageProps {
   currPage: number

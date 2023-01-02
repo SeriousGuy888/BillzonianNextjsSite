@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Link from "next/link"
-import styles from "../../../styles/Wordlist.module.scss"
-import { padWord } from "../../../utils/dictionaryData"
+import styles from "./Wordlist.module.scss"
+import { padWord } from "../../utils/dictionaryData"
 
 const WordPreview: NextPage<{ word: string }> = ({ word }) => {
   return (
