@@ -1,10 +1,8 @@
 import { Noto_Sans } from "@next/font/google"
 import { motion } from "framer-motion"
 import { NextPage } from "next"
-import Link from "next/link"
-import { DictionaryEntry } from "../../../types/DictionaryTypes"
-import { cachedWordData } from "../../../utils/dictionaryData"
-import styles from "../../../styles/Word.module.scss"
+import { DictionaryEntry } from "../../types/DictionaryTypes"
+import styles from "./Word.module.scss"
 import WordEntryText from "./WordEntryText"
 import WordLink from "./WordLink"
 

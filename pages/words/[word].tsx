@@ -1,11 +1,11 @@
 import { getWord, padWord, uniqueWordsList } from "../../utils/dictionaryData"
-import styles from "../../styles/Word.module.scss"
+import styles from "../../modules/word/Word.module.scss"
 
 import Head from "next/head"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { DictionaryEntry } from "../../types/DictionaryTypes"
-import WordEntry from "../../components/elements/wordlist/WordEntry"
-import WordEntryText from "../../components/elements/wordlist/WordEntryText"
+import WordEntry from "../../modules/word/WordEntry"
+import WordEntryText from "../../modules/word/WordEntryText"
 
 const Word: NextPage<{
   entries?: DictionaryEntry[]

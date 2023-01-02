@@ -1,7 +1,7 @@
 import { NextPage } from "next"
 import Link from "next/link"
 import { ReactNode } from "react"
-import { cachedWordData } from "../../../utils/dictionaryData"
+import { cachedWordData } from "../../utils/dictionaryData"
 
 interface PageProps {
   word: string
