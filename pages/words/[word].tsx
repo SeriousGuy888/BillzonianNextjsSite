@@ -25,6 +25,17 @@ const Word: NextPage<{
   }
 
   const title = `${word} - Billzonian`
+
+  let description = `${entries.length} entries for ${word.toUpperCase()}. See all information on the website.\n-----`
+
+  entries.forEach((entry) => {
+    description += "\n\n"
+
+    description += entry.glosses
+      .map((gloss, j) => `${j + 1}. ${gloss}`)
+      .join("\n")
+  })
+
   return (
     <>
       <Head>
@@ -33,10 +44,13 @@ const Word: NextPage<{
         <meta property="og:title" content={title} />
         <meta
           property="og:description"
-          content={
-            entries[0].glosses.map((g, i) => `${i + 1}. ${g}`).join("\n") +
-            "\n\n..."
-          }
+          content={description.slice(0, 150) + "..."}
+        />
+        <meta
+          property="og:image"
+          content={`https://billzonian.vercel.app/api/og?title=${encodeURI(
+            word,
+          )}&description=${encodeURI(description)}`}
         />
       </Head>
 
