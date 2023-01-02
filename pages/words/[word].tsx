@@ -26,7 +26,9 @@ const Word: NextPage<{
 
   const title = `${word} - Billzonian`
 
-  let description = `${entries.length} entries for ${word.toUpperCase()}. See all information on the website.\n-----`
+  let description = `${
+    entries.length
+  } entries for ${word.toUpperCase()}. See all information on the website.\n-----`
 
   entries.forEach((entry) => {
     description += "\n\n"
@@ -52,6 +54,7 @@ const Word: NextPage<{
             word,
           )}&description=${encodeURI(description)}`}
         />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <section className={styles.main}>
