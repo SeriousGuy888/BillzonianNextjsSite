@@ -6,7 +6,7 @@ import ArticleIcon from "@mui/icons-material/ArticleRounded"
 import GridIcon from "@mui/icons-material/GridViewRounded"
 import SearchIcon from "@mui/icons-material/SearchRounded"
 
-import { LogoCircle } from "../../logos"
+import { LogoCircle } from "../../components/logos"
 
 export default function Nav() {
   return (

@@ -3,8 +3,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import type { ReactElement } from "react"
 
-import HomeIcon from "@mui/icons-material/HomeRounded"
-
 interface PageProps {
   icon: ReactElement
   href: string

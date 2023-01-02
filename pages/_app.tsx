@@ -4,7 +4,7 @@ import "../styles/layout.scss"
 import type { AppProps } from "next/app"
 import { AnimatePresence, motion, MotionConfig } from "framer-motion"
 
-import Nav from "../components/elements/nav/Nav"
+import Nav from "../modules/nav/Nav"
 import Router, { useRouter } from "next/router"
 import { usePageLoading } from "../hooks/usePageLoading"
 import LoadingSpinner from "../components/elements/LoadingSpinner"
