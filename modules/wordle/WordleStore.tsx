@@ -45,9 +45,6 @@ let state = {
     this.currGuessIndex++
   },
   handleKeyUp(event: KeyboardEvent) {
-    if (this.won || this.lost) {
-      return
-    }
     if (event.altKey || event.ctrlKey || event.metaKey) {
       return
     }
@@ -66,6 +63,10 @@ let state = {
     }
   },
   pressKey(key: string) {
+    if (this.won || this.lost) {
+      return
+    }
+    
     switch (key) {
       case "Enter":
         if (this.guesses[this.currGuessIndex].length === this.wordLength) {
