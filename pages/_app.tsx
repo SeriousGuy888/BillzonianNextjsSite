@@ -9,6 +9,7 @@ import Router, { useRouter } from "next/router"
 import { usePageLoading } from "../hooks/usePageLoading"
 import LoadingSpinner from "../components/elements/LoadingSpinner"
 import { SWRConfig } from "swr"
+import Head from "next/head"
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -25,6 +26,16 @@ export default function App({ Component, pageProps }: AppProps) {
             dedupingInterval: 60_000,
           }}
         >
+          <Head>
+            <title>Billzonian</title>
+            <meta name="description" content="The Billzonian Language" />
+            <meta name="theme-color" content="#b22ef9" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
           <div className="layout">
             <Nav />
             <motion.main
