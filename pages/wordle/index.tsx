@@ -40,7 +40,7 @@ export default observer(function Wordle() {
 
         {store.guesses.map((_, i) => (
           <Guess
-            key={i.toString()}
+            key={i} // nosonar
             word={store.word}
             wordLength={store.wordLength}
             guess={store.guesses[i]}

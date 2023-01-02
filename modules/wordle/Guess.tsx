@@ -27,7 +27,7 @@ const Guess: NextPage<PageProps> = ({ word, wordLength, guess, isSubmitted }) =>
         const delay = `${i * 100}ms`
         return (
           <div
-            key={i.toString()}
+            key={i} // nosonar
             className={`${styles.cell} ${
               cellColourClass && styles[cellColourClass]
             }`}
