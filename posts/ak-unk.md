@@ -2,7 +2,9 @@
 title: Ak & Unk
 date: 2021-11-09
 excerpt: "pretty cool words"
-tags: ["Grammar", "Vocabulary"]
+tags: 
+  - grammar
+  - vocabulary
 ---
 
 The words [ak](../words/ak) and [unk](../words/unk) are pretty cool.
