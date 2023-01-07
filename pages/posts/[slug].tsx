@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { BlogPost, getAllPostSlugs, getPost } from "../../utils/posts"
+import { getAllPostSlugs, getPostByFileName } from "../../utils/posts"
 
-const Post: NextPage<BlogPost> = ({ frontMatter, content }) => {
+const Post: NextPage<{ [key: string]: string }> = ({ title, content }) => {
   return (
     <>
-      <h1>{frontMatter?.title ?? "Untitled Post"}</h1>
+      <h1>{title ?? "Untitled Post"}</h1>
       <article>{content}</article>
     </>
   )
@@ -14,8 +14,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug as string
 
   return {
-    props: getPost(slug),
-    revalidate: 30,
+    props: getPostByFileName(slug + ".md", ["title", "content"]),
+    revalidate: 120,
   }
 }
 

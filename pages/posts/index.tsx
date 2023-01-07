@@ -1,10 +1,10 @@
 import { GetStaticProps, NextPage } from "next/types"
-import { BlogPost, getAllPostMetadata } from "../../utils/posts"
+import { getAllPosts } from "../../utils/posts"
 import styles from "../../styles/Posts.module.scss"
 import Link from "next/link"
 
 interface PageProps {
-  posts: BlogPost[]
+  posts: { [key: string]: string }[]
 }
 
 const Posts: NextPage<PageProps> = ({ posts }) => {
@@ -18,19 +18,17 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
         >
           <div className={styles.card}>
             <div>
-              <h3>{post.frontMatter.title}</h3>
+              <h3>{post.title}</h3>
 
-              {post.frontMatter.date && (
-                <p className={styles.date}>
-                  {post.frontMatter.date.split("T")[0]}
-                </p>
+              {post.date && (
+                <p className={styles.date}>{post.date.split("T")[0]}</p>
               )}
             </div>
 
-            {post.frontMatter.excerpt && (
+            {post.excerpt && (
               <>
                 <hr />
-                <p className={styles.excerpt}>{post.frontMatter.excerpt}</p>
+                <p className={styles.excerpt}>{post.excerpt}</p>
               </>
             )}
           </div>
@@ -40,13 +38,11 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
-  const posts = getAllPostMetadata()
+export const getStaticProps: GetStaticProps<PageProps> = async () => {
+  const posts = getAllPosts(["title", "date", "slug", "excerpt"])
 
   return {
-    props: {
-      posts,
-    },
+    props: { posts },
   }
 }
 

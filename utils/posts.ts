@@ -3,11 +3,11 @@ import path from "path"
 import matter from "gray-matter"
 import { SearchableItem } from "../pages/api/search"
 
-export interface BlogPost {
-  slug: string
-  frontMatter: FrontMatter
-  content?: string
-}
+// export interface BlogPost {
+//   slug: string
+//   frontMatter: FrontMatter
+//   content?: string
+// }
 
 interface FrontMatter {
   title?: string
@@ -20,12 +20,15 @@ interface FrontMatter {
 const postsDir = path.resolve("posts")
 
 const getSlug = (fileName: string) => fileName.replace(/\.md$/, "")
+const getPostFileNames = () => {
+  return fs.readdirSync(postsDir)
+}
 
 const goodifyFrontMatter = (frontMatter: FrontMatter) =>
   JSON.parse(JSON.stringify(frontMatter))
 
 export const getAllPostSlugs = (): { params: { slug: string } }[] => {
-  const fileNames = fs.readdirSync(postsDir)
+  const fileNames = getPostFileNames()
   return fileNames.map((fileName) => ({
     params: {
       slug: getSlug(fileName),
@@ -33,41 +36,49 @@ export const getAllPostSlugs = (): { params: { slug: string } }[] => {
   }))
 }
 
-export const getAllPostMetadata = (): BlogPost[] => {
-  const fileNames = fs.readdirSync(postsDir)
+export const getAllPosts = (fields: string[] = []) => {
+  const fileNames = getPostFileNames()
 
-  return fileNames.map((fileName) => {
-    const slug = getSlug(fileName)
-    const readFiles = fs.readFileSync(path.join(postsDir, fileName))
-    const { data } = matter(readFiles)
-
-    return {
-      slug,
-      frontMatter: goodifyFrontMatter(data),
-    }
-  })
+  return fileNames
+    .map((fileName) => getPostByFileName(fileName, fields))
+    .sort((a, b) => (a.date > b.date ? -1 : 1))
 }
 
-export const getPost = (slug: string): BlogPost => {
-  const file = fs.readFileSync(path.join(postsDir, `${slug}.md`))
-  const { data, content } = matter(file)
+export const getPostByFileName = (
+  fileName: string,
+  fieldsNeeded: string[] = [],
+) => {
+  const fileContents = fs.readFileSync(path.join(postsDir, fileName))
+  const { data, content } = matter(fileContents)
 
-  return {
-    slug,
-    frontMatter: goodifyFrontMatter(data),
-    content,
-  }
+  const frontMatter = goodifyFrontMatter(data)
+
+  const outputData: { [key: string]: string } = {}
+  fieldsNeeded.forEach((field) => {
+    if (field === "slug") {
+      outputData[field] = getSlug(fileName)
+    }
+    if (field === "content") {
+      outputData[field] = content
+    }
+
+    if (typeof frontMatter[field] !== "undefined") {
+      outputData[field] = frontMatter[field]
+    }
+  })
+
+  return outputData
 }
 
 export const getAllPostsAsSearchables = (): SearchableItem[] => {
-  const posts = getAllPostMetadata()
+  const posts = getAllPosts()
   const searchables: SearchableItem[] = []
 
   posts.forEach((post) => {
-    const { excerpt, tags, title } = post.frontMatter
-    const searchableText = `${post.slug} ${excerpt ?? ""} ${
-      tags?.join(" ") ?? ""
-    } ${title ?? ""}`.toLowerCase()
+    const { excerpt, tags, title } = post
+    const searchableText = `${post.slug} ${excerpt ?? ""} ${tags ?? ""} ${
+      title ?? ""
+    }`.toLowerCase()
 
     searchables.push({
       linkPath: `/posts/${post.slug}`,
