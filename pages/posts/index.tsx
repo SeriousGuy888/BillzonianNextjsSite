@@ -1,10 +1,10 @@
 import { GetStaticProps, NextPage } from "next/types"
-import { getAllPosts } from "../../utils/posts"
+import { BlogPost, getAllPosts } from "../../utils/posts"
 import styles from "../../styles/Posts.module.scss"
 import Link from "next/link"
 
 interface PageProps {
-  posts: { [key: string]: string }[]
+  posts: BlogPost[]
 }
 
 const Posts: NextPage<PageProps> = ({ posts }) => {
@@ -39,7 +39,7 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const posts = getAllPosts(["title", "date", "slug", "excerpt"])
+  const posts = getAllPosts(["title", "date", "excerpt"])
 
   return {
     props: { posts },

@@ -5,18 +5,15 @@ import { SearchableItem } from "../pages/api/search"
 import { remark } from "remark"
 import remarkHtml from "remark-html"
 
-// export interface BlogPost {
-//   slug: string
-//   frontMatter: FrontMatter
-//   content?: string
-// }
-
-interface FrontMatter {
+export interface BlogPost {
+  slug: string
+  content?: string
   title?: string
   date?: string
   image?: string
   excerpt?: string
   tags?: string[]
+  [key: string]: any
 }
 
 const postsDir = path.resolve("posts")
@@ -26,7 +23,7 @@ const getPostFileNames = () => {
   return fs.readdirSync(postsDir)
 }
 
-const goodifyFrontMatter = (frontMatter: FrontMatter) =>
+const goodifyFrontMatter = (frontMatter: { [key: string]: any }) =>
   JSON.parse(JSON.stringify(frontMatter))
 
 export const getAllPostSlugs = (): { params: { slug: string } }[] => {
@@ -43,31 +40,34 @@ export const getAllPosts = (fields: string[]) => {
 
   return fileNames
     .map((fileName) => getPostByFileName(fileName, fields))
-    .sort((a, b) => (a.date > b.date ? -1 : 1))
+    .sort((a, b) => ((a.date ?? 0) > (b.date ?? 0) ? -1 : 1))
 }
 
-export const getPostByFileName = (
-  fileName: string,
-  fieldsNeeded: string[] = [],
-) => {
-  const fileContents = fs.readFileSync(path.join(postsDir, fileName))
-  const { data, content } = matter(fileContents)
+export const getPostBySlug = (slug: string) => getPostByFileName(slug + ".md")
 
+const getPostByFileName = (fileName: string, fieldsNeeded: string[] = []) => {
+  const fileContents = fs.readFileSync(path.join(postsDir, fileName))
+
+  const { data, content } = matter(fileContents)
   const frontMatter = goodifyFrontMatter(data)
 
-  const outputData: { [key: string]: string } = {}
-  fieldsNeeded.forEach((field) => {
-    if (field === "slug") {
-      outputData[field] = getSlug(fileName)
-    }
-    if (field === "content") {
-      outputData[field] = content
-    }
+  let outputData: BlogPost = {
+    slug: getSlug(fileName),
+  }
 
-    if (typeof frontMatter[field] !== "undefined") {
-      outputData[field] = frontMatter[field]
-    }
-  })
+  if (fieldsNeeded.length === 0) {
+    outputData = { ...outputData, ...frontMatter, content }
+  } else {
+    fieldsNeeded.forEach((field) => {
+      if (field === "content") {
+        outputData[field] = content
+      }
+
+      if (typeof frontMatter[field] !== "undefined") {
+        outputData[field] = frontMatter[field]
+      }
+    })
+  }
 
   return outputData
 }
@@ -78,7 +78,7 @@ export const markdownToHtml = async (markdown: string) => {
 }
 
 export const getAllPostsAsSearchables = (): SearchableItem[] => {
-  const posts = getAllPosts(["excerpt", "tags", "title", "slug"])
+  const posts = getAllPosts(["excerpt", "tags", "title"])
   const searchables: SearchableItem[] = []
 
   posts.forEach((post) => {

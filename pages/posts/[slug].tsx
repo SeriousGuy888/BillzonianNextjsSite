@@ -1,22 +1,23 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import {
+  BlogPost,
   getAllPostSlugs,
-  getPostByFileName,
+  getPostBySlug,
   markdownToHtml,
 } from "../../utils/posts"
 
-const Post: NextPage<{ [key: string]: string }> = ({ title, content }) => {
+const Post: NextPage<BlogPost> = ({ title, content }) => {
   return (
     <>
       <h1>{title ?? "Untitled Post"}</h1>
-      <article dangerouslySetInnerHTML={{ __html: content }} />
+      <article dangerouslySetInnerHTML={{ __html: content ?? "" }} />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params?.slug as string
-  const postData = getPostByFileName(slug + ".md", ["title", "content"])
+  const postData = getPostBySlug(slug)
   const content = await markdownToHtml(postData.content || "")
 
   return {
