@@ -2,6 +2,8 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { SearchableItem } from "../pages/api/search"
+import { remark } from "remark"
+import remarkHtml from "remark-html"
 
 // export interface BlogPost {
 //   slug: string
@@ -68,6 +70,11 @@ export const getPostByFileName = (
   })
 
   return outputData
+}
+
+export const markdownToHtml = async (markdown: string) => {
+  const result = await remark().use(remarkHtml).process(markdown)
+  return result.toString()
 }
 
 export const getAllPostsAsSearchables = (): SearchableItem[] => {

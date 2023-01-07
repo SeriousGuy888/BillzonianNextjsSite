@@ -29,6 +29,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-string-replace": "^1.1.0",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
     "sass": "^1.56.2",
     "string-similarity": "^4.0.4",
     "swr": "^2.0.0",
