@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
+import ArticleHeader from "../../modules/articles/ArticleHeader"
 import {
   BlogPost,
   getAllPostSlugs,
@@ -6,11 +7,11 @@ import {
   markdownToHtml,
 } from "../../utils/posts"
 
-const Post: NextPage<BlogPost> = ({ title, content }) => {
+const Post: NextPage<BlogPost> = (post) => {
   return (
     <>
-      <p>{title ?? "Untitled Post"}</p>
-      <article dangerouslySetInnerHTML={{ __html: content ?? "" }} />
+      <ArticleHeader post={post} />
+      <article dangerouslySetInnerHTML={{ __html: post.content ?? "" }} />
     </>
   )
 }
