@@ -9,7 +9,7 @@ import {
 const Post: NextPage<BlogPost> = ({ title, content }) => {
   return (
     <>
-      <h1>{title ?? "Untitled Post"}</h1>
+      <p>{title ?? "Untitled Post"}</p>
       <article dangerouslySetInnerHTML={{ __html: content ?? "" }} />
     </>
   )

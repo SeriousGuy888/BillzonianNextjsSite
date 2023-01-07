@@ -14,7 +14,7 @@ const Posts: NextPage<PageProps> = ({ posts }) => {
         <Link
           key={post.slug}
           className={styles.cardContainer}
-          href={`/posts/${post.slug}`}
+          href={`/articles/${post.slug}`}
         >
           <div className={styles.card}>
             <div>
