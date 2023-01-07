@@ -38,7 +38,7 @@ export const getAllPostSlugs = (): { params: { slug: string } }[] => {
   }))
 }
 
-export const getAllPosts = (fields: string[] = []) => {
+export const getAllPosts = (fields: string[]) => {
   const fileNames = getPostFileNames()
 
   return fileNames
@@ -78,7 +78,7 @@ export const markdownToHtml = async (markdown: string) => {
 }
 
 export const getAllPostsAsSearchables = (): SearchableItem[] => {
-  const posts = getAllPosts()
+  const posts = getAllPosts(["excerpt", "tags", "title", "slug"])
   const searchables: SearchableItem[] = []
 
   posts.forEach((post) => {
