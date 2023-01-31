@@ -1,6 +1,6 @@
 ---
 title: Affektion
-tags: examples
+tags: [examples]
 date: 2021-10-19
 ---
 
