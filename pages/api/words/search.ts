@@ -24,8 +24,8 @@ export default function handler(
       wordName.includes(searchTerm) ||
       wordData.some(
         (entry) =>
-          entry.glosses.includes(searchTerm) ||
-          entry.alternateForms.includes(searchTerm),
+          entry.glosses.join(" ").includes(searchTerm) ||
+          entry.alternateForms.join(" ").includes(searchTerm),
       ),
   )
 
