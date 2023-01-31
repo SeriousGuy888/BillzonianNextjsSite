@@ -12,7 +12,7 @@ const ArticleHeader: NextPage<{ post: BlogPost }> = ({
         <p className={styles.date}>{date?.split("T")[0] ?? ""}</p>
       </div>
       <div className={styles.tags}>
-        {(tags ?? []).map((tag) => (
+        {(tags instanceof Array ? tags : []).map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
       </div>

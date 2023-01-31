@@ -66,6 +66,11 @@ const getPostByFileName = (fileName: string, fieldsNeeded: string[] = []) => {
       if (typeof frontMatter[field] !== "undefined") {
         outputData[field] = frontMatter[field]
       }
+
+      if (field === "tags" && !(frontMatter[field] instanceof Array)) {
+        console.warn(`BlogPost \`${fileName}\` tags are not an array!`)
+        outputData[field] = undefined
+      }
     })
   }
 
